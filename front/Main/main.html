@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="style.css">
+    <title>Proyectos</title>
+</head>
+
+<body id="body-pd">
+    <header class="header" id="header">
+        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+        <a href="/Usuarios/datosUsuario2.html">
+            <div class="header_img">
+                <img src="https://images2.minutemediacdn.com/image/upload/c_crop,w_5000,h_2812,x_0,y_292/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/GettyImages/mmsport/90min_es_international_web/01g04pdz8r47edkcp3f6.jpg"
+                    alt="">
+            </div>
+        </a>
+    </header>
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span
+                        class="nav_logo-name">Fundación
+                        Bariloche</span> </a>
+                <div class="nav_list"> <a href="../Usuarios/usuarios2.html" class="nav_link"> <i
+                            class='bx bx-user nav_icon'></i> <span class="nav_name">Usuarios</span>
+                    </a>
+                    <a href="nuevaFicha.html" class="nav_link"> <i class='bi bi-file-earmark-plus'></i> <span
+                            class="nav_name">Nueva
+                            Ficha</span>
+                    </a>
+                    <a href="../Areas/areas2.html" class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span
+                            class="nav_name">Areas</span> </a> <a href="../Validadores/validadores.html"
+                        class="nav_link"> <i class='bx bx-folder nav_icon'></i>
+                        <span class="nav_name">Validadores</span> </a>
+                    <a href="../Graficos/reporte1.html" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
+                        <span class="nav_name">Reporte 1</span> </a>
+                    <a href="../Graficos/reporte2.html" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
+                        <span class="nav_name">Reporte 2</span> </a>
+                    <a href="../Graficos/reporte3.html" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
+                        <span class="nav_name">Reporte 3</span> </a>
+
+                </div>
+            </div> <a href="/Login/index.html" onclick="cerrarSesion()" class="nav_link"> <i
+                    class='bx bx-log-out nav_icon'></i> <span class="nav_name">Cerrar Sesión</span> </a>
+        </nav>
+    </div>
+    <!--Container Main start-->
+    <div class="p-3 text-center">
+        <div id="spinner" class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <form id="formulario" action="">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-md-offset-2">
+                    <div class="card">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <input type="text" class="form-control" id="txtDesde" placeholder="Año Desde">
+                            <input type="text" class="form-control" id="txtHasta" placeholder="Año Hasta">
+                            <input type="text" class="form-control" id="txtPaisRegion" placeholder="País/Región">
+                            <select name="" id="txtDepartamento" class="form-control">
+                                <option value="" selected>Departamento</option>
+                                <option value="ENERGIA">ENERGIA</option>
+                                <option value="MADE">MADE</option>
+                                <option value="ASC">ASC</option>
+                            </select>
+                            <select id="txtAreas" class="form-control">
+                                <!-- <option id="idOpcionArea" value="" selected>Áreas</option> -->
+                            </select>
+                            <button id="btnFiltrar" class="btn btn-primary">Filtrar</button>
+                            <button id="btnEliminarFiltros" class="btn btn-danger">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <br>
+
+    <br>
+    <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <!-- <th>ID</th> -->
+                <th>Titulo</th>
+                <th>Pais/Region</th>
+                <!-- <th>Moneda</th>
+                <th>Monto</th> -->
+                <th>Año Incio</th>
+                <th>Año Fin</th>
+                <th>Areas</th>
+                <th>Departamento</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+    </table>
+    <br>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+
+    <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
+
+    <style>
+        .table-responsive {
+            max-height: 200px;
+        }
+    </style>
+
+    <title>Nueva Ficha</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="../Main/main.html">Fundación Bariloche</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="main.html">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div> -->
+    </nav>
+
+    <form id="formulario" method="POST" class="container">
+        <br>
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                <label>Titulo</label>
+                <input type="text" class="form-control" id="txtTitulo" placeholder="Titulo">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Departamento</label>
+                <select name="" id="txtDepartamento" class="form-control">
+                    <option value="ENERGIA">ENERGIA</option>
+                    <option value="MADE">MADE</option>
+                    <option value="ASC">ASC</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>Pais/Region</label>
+                <input type="text" class="form-control" name="pais" id="txtPais" placeholder="Pais">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Contratante</label>
+                <input type="text" class="form-control" id="txtContratante" placeholder="Contratante">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Dirección</label>
+                <input type="text" class="form-control" id="txtDireccion" placeholder="Direccion">
+            </div>
+        </div>
+
+        <hr>
+
+        <h3>Datos del Contrato</h3>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Numero</label>
+                <input type="text" class="form-control" id="txtNumero" placeholder="Numero">
+            </div>
+            <!-- <div class="form-group col-md-2">
+                <label>Monto</label>
+                <input type="text" class="form-control" id="txtMonto" placeholder="Monto">
+            </div>
+            <div class="form-group col-md-2">
+                <label>Moneda</label>
+                <select id="txtMoneda" class="form-control">
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="PESOS">PESOS</option>
+                </select>
+            </div> -->
+            <div class="form-group col-md-2">
+                <label class="text-center" for="">Ejecución</label>
+                <input type="checkbox" class="form-control" id="txtEjecucion">
+            </div>
+            <div class="form-group col-md-2">
+                <label class="text-center" for="">Convenio/Acuerdo</label>
+                <input type="checkbox" class="form-control" id="txtConvenio">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="inputState">Mes Inicio</label>
+                <select id="mesDesde" class="form-control">
+                    <option selected>Seleccione</option>
+                    <option value="0" id="idMes">Enero</option>
+                    <option value="1" id="idMes">Febrero</option>
+                    <option value="2" id="idMes">Marzo</option>
+                    <option value="3" id="idMes">Abril</option>
+                    <option value="4" id="idMes">Mayo</option>
+                    <option value="5" id="idMes">Junio</option>
+                    <option value="6" id="idMes">Julio</option>
+                    <option value="7" id="idMes">Agosto</option>
+                    <option value="8" id="idMes">Septiembre</option>
+                    <option value="9" id="idMes">Octubre</option>
+                    <option value="10" id="idMes">Noviembre</option>
+                    <option value="11" id="idMes">Diciembre</option>
+                </select>
+            </div>
+            <div class="form-group col-md-1">
+                <label>Año Inicio</label>
+                <input type="number" class="form-control" id="txtAnioInicio">
+            </div>
+            <div class="form-group col-md-3">
+                <label>Mes Fin</label>
+                <select id="mesHasta" class="form-control">
+                    <option selected>Seleccione</option>
+                    <option value="0" id="idMes">Enero</option>
+                    <option value="1" id="idMes">Febrero</option>
+                    <option value="2" id="idMes">Marzo</option>
+                    <option value="3" id="idMes">Abril</option>
+                    <option value="4" id="idMes">Mayo</option>
+                    <option value="5" id="idMes">Junio</option>
+                    <option value="6" id="idMes">Julio</option>
+                    <option value="7" id="idMes">Agosto</option>
+                    <option value="8" id="idMes">Septiembre</option>
+                    <option value="9" id="idMes">Octubre</option>
+                    <option value="10" id="idMes">Noviembre</option>
+                    <option value="11" id="idMes">Diciembre</option>
+                </select>
+            </div>
+            <div class="form-group col-md-1">
+                <label>Año Fin</label>
+                <input type="number" class="form-control" id="txtAnioFin">
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Link</label>
+                <input type="text" class="form-control" id="txtLink">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label>Consultores Asociados</label>
+                <textarea name="" id="txtConsultores" class="form-control" cols="30" rows="5"></textarea>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label>Descripcion de Proyecto</label>
+                <textarea name="" id="txtDescProyexto" class="form-control" cols="30" rows="5"></textarea>
+            </div>
+        </div>
+
+        <!-- Presupuesto -->
+        <h3>Presupuesto</h3>
+        <button type="button" data-toggle="modal" data-target="#exampleModalPresupuesto"
+            class="btn btn-primary">+</button>
+        <br>
+        <br>
+        <div class="panel-body table-responsive">
+            <table id="mytablePresupuesto" class="container table">
+                <thead class="container">
+                    <tr>
+                        <th>Monto Total</th>
+                        <th>Divisa</th>
+                        <th>Gastos</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+            </table>
+            <tbody id="mytableBodyPublicacion">
+
+            </tbody>
+        </div>
+        <hr>
+
+        <!-- Publicaciones -->
+        <div>
+            <h3>Publicaciones</h3>
+            <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">+</button>
+        </div>
+        <br>
+        <div class="panel-body table-responsive">
+            <table id="mytablePublicacion" class="container table">
+                <thead class="container">
+                    <tr>
+                        <!-- <th>ID</th> -->
+                        <th>Año</th>
+                        <th>Codigo BSC</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+            </table>
+            <tbody id="mytableBodyPublicacion">
+
+            </tbody>
+        </div>
+
+        <hr>
+
+        <!-- Personal -->
+        <div class="form-row">
+            <div class="form-group col-md-7">
+                <label>Personal</label>
+                <select id="txtPersonal" class="form-control">
+                    <option id="idOpcionPersonal" value="null" selected>Seleccione</option>
+                </select>
+            </div>
+            <button type="button" onclick="imprimirValorPersonal()" style="height: 40px; margin-top: 30px;"
+                id="btnAgregarPersonal" class="btn btn-primary">+</button>
+
+            <div class="panel-body table-responsive">
+                <table id="mytable" class="container table">
+                    <thead class="container">
+                        <tr>
+                            <!-- <th>ID</th> -->
+                            <th>Personal</th>
+                            <th>Coordinador</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                </table>
+                <tbody>
+
+                </tbody>
+            </div>
+
+            <!-- Areas -->
+            <div class="form-group col-md-7">
+                <label>Areas</label>
+                <select id="txtAreas" class="form-control">
+                    <option id="idOpcionArea" value="null" selected>Seleccione</option>
+                </select>
+            </div>
+            <button type="button" onclick="imprimirValorAreas()" style="height: 40px; margin-top: 30px;"
+                id="btnAgregarArea" class="btn btn-primary">+</button>
+
+            <div class="panel-body table-responsive">
+                <table id="mytableArea" class="container table">
+                    <thead class="container">
+                        <tr>
+                            <th>Area</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                </table>
+                <tbody>
+
+                </tbody>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <h6 for="">Certificado Conformidad</h6>
+                <input id="certConformidad" type="checkbox">
+            </div>
+            <div class="form-group col-md-4">
+                <h6 for="">Ficha Lista?</h6>
+                <input id="idFichaLista" onclick="fichaSeleccionada()" type="checkbox">
+            </div>
+            <div class="form-group col-md-4">
+                <select name="" onchange="cambiarValor()" class="form-control" id="comboFicha">
+                    <option value="-1">Seleccione</option>
+                    <option value="0">Landaveri, Raúl</option>
+                    <option value="1">Lallana, Francisco</option>
+                    <option value="2">Nadal. Gustavo</option>
+                    <option value="3">Di Sbroiavacca, Nicolás</option>
+                    <option value="4">Dubrovsky, Hilda</option>
+                    <option value="5">Recalde, Marina</option>
+                </select>
+            </div>
+
+        </div>
+        <br>
+        <button type="submit" id="enviar" class="btn btn-primary">Guardar</button>
+        <button type="submit" id="cancelar" class="btn btn-danger">Cancelar</button>
+        <br><br>
+    </form>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nueva Publicacion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formPublicacion" action="">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="">Año</label>
+                                <input type="text" class="form-control" id="txtAnioPubli" placeholder="Año">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="">Codigo BCS</label>
+                                <input type="text" class="form-control" id="txtCodigoBcs" placeholder="Codigo BSC">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label>Publicacion</label>
+                                <textarea class="form-control" name="" id="txtPublicacion" cols="10"
+                                    rows="5"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnPublicacion" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Publicacion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formPublicacion" action="">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="">Año</label>
+                                <input type="text" class="form-control" id="txtAnioPubli2" placeholder="Año">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="">Codigo BCS</label>
+                                <input type="text" class="form-control" id="txtCodigoBcs2" placeholder="Codigo BSC">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label>Publicacion</label>
+                                <textarea class="form-control" name="" id="txtPublicacion2" cols="10"
+                                    rows="5"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnDatosPublicacion" data-dismiss="modal"
+                        class="btn btn-primary">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Presupuesto-->
+    <div class="modal fade" id="exampleModalPresupuesto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nuevo Presupuesto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formPresupuesto" action="">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="">Divisa</label>
+                                <select id="txtDivisa" class="form-control">
+                                    <option value="USD">USD</option>
+                                    <option value="EUR">EUR</option>
+                                    <option value="PESOS">PESOS</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="">Honorarios</label>
+                                <input type="text" class="form-control" id="txtHonorario" placeholder="Honorarios">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="">Viaticos</label>
+                                <input type="text" class="form-control" id="txtViaticos" placeholder="Viaticos">
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="">Equipamiento</label>
+                                <input type="text" class="form-control" id="txtEquipo" placeholder="Equipamiento">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="">Gastos</label>
+                                <input type="text" class="form-control" id="txtGastos" placeholder="Gastos">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnPresupuesto" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Presupuesto Editar-->
+    <div class="modal fade" id="exampleModalPresupuestoEditar" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Presupuesto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formPresupuesto" action="">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="">Divisa</label>
+                                <select id="txtDivisa2" class="form-control">
+                                    <option value="USD">USD</option>
+                                    <option value="EUR">EUR</option>
+                                    <option value="PESOS">PESOS</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="">Honorarios</label>
+                                <input type="text" class="form-control" id="txtHonorario2" placeholder="Honorarios">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="">Viaticos</label>
+                                <input type="text" class="form-control" id="txtViaticos2" placeholder="Viaticos">
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="">Equipamiento</label>
+                                <input type="text" class="form-control" id="txtEquipo2" placeholder="Equipamiento">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="">Gastos</label>
+                                <input type="text" class="form-control" id="txtGastos2" placeholder="Gastos">
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnPresupuestoEditar" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="nuevaFicha.js"></script>
+
+</body>
+
+</html>
