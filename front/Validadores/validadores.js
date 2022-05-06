@@ -7,10 +7,10 @@ $(document).ready(function () {
             showConfirmButton: false,
         });
         setInterval(() => {
-            window.location = "/Login/index.html";
+            window.location = "../index.html";
         }, 2000);
     } else {
-        fetch("https://practica-supervisada.herokuapp.com/api/validador", {
+        fetch("https://practica-supervisada.herokuapp.com/api/Personal", {
             method: "get",
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
@@ -18,6 +18,7 @@ $(document).ready(function () {
             },
         })
             .then((response) => response.json())
+
             .catch((response) => {
                 Swal.fire({
                     icon: "error",
@@ -25,15 +26,31 @@ $(document).ready(function () {
                     showConfirmButton: false,
                 });
                 setInterval(() => {
-                    window.location = "/Login/index.html";
+                    window.location = "../index.html";
                 }, 2000);
                 return false;
             })
             .then((json) => {
                 console.log(json);
                 getTabla();
+                cargarComboPersonal(json, "txtNombre");
+                cargarComboPersonal(json, "txtNombreEditar");
             });
     }
+
+    function cargarComboPersonal(datos, idSelect) {
+        var html = "<option value=''>Personal</option>";
+        $(`#${idSelect}`).append(html);
+        select = document.getElementById(`${idSelect}`);
+        for (let i = 0; i < datos.length; i++) {
+            var option = document.createElement("option");
+            option.value = datos[i].nombre;
+            option.text = datos[i].nombre;
+            select.add(option);
+            //console.log(datos[i].area1);
+        }
+    }
+
 });
 
 function getTabla() {
@@ -80,9 +97,7 @@ function getTabla() {
                 ],
             });
         },
-        error: function (error) {
-            alert("No hay Reservas");
-        },
+
     });
 }
 
@@ -132,9 +147,7 @@ function getTabla2() {
                 ],
             });
         },
-        error: function (error) {
-            alert("No hay Reservas");
-        },
+
     });
 }
 

@@ -7,7 +7,7 @@ $(document).ready(function () {
       showConfirmButton: false,
     });
     setInterval(() => {
-      window.location = "/Login/index.html";
+      window.location = "../index.html";
     }, 100);
   } else {
     fetch("https://practica-supervisada.herokuapp.com/api/Area", {
@@ -25,7 +25,7 @@ $(document).ready(function () {
           showConfirmButton: false,
         });
         setInterval(() => {
-          window.location = "/Login/index.html";
+          window.location = "../index.html";
         }, 2000);
         return false;
       })

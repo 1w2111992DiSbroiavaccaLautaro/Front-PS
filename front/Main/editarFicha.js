@@ -10,7 +10,7 @@ $(document).ready(function () {
             showConfirmButton: false,
         });
         setInterval(() => {
-            window.location = "../Login/index.html";
+            window.location = "../index.html";
         }, 2000);
     } else {
         fetch("https://proyecto-fundacion.herokuapp.com/api/Areas", {
@@ -20,6 +20,17 @@ $(document).ready(function () {
             },
         })
             .then((response) => response.json())
+            .catch((response) => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Sesión expirada",
+                    showConfirmButton: false,
+                });
+                setInterval(() => {
+                    window.location = "../index.html";
+                }, 2000);
+                return false;
+            })
             .then((data) => {
                 cargarComboAreas(data);
             });

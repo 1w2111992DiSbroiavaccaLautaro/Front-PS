@@ -7,7 +7,7 @@ $(document).ready(function () {
       showConfirmButton: false,
     });
     setInterval(() => {
-      window.location = "/index.html";
+      window.location = "../index.html";
     }, 100);
   } else {
     fetch("https://proyecto-fundacion.herokuapp.com/api/Areas", {
@@ -18,6 +18,7 @@ $(document).ready(function () {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         cargarComboAreas(data);
       });
 
@@ -36,7 +37,7 @@ $(document).ready(function () {
           showConfirmButton: false,
         });
         setInterval(() => {
-          window.location = "/Login/index.html";
+          window.location = "../index.html";
         }, 2000);
         return false;
       })
