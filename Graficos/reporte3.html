@@ -55,7 +55,7 @@
 
     <div class="p-3 text-center">
         <div id="spinner" class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
+            <span class="visually-hidden">Cargando...</span>
         </div>
     </div>
 
@@ -81,8 +81,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-
-
 
         function hideSpinner() {
             document.getElementById("spinner").style.display = "none";
@@ -118,7 +116,7 @@
 
                     myChart.destroy();
                     const labels = [
-                        'ENERGIA',
+                        'ENERGÍA',
                         'MADE',
                         'ASC'
                     ];
@@ -144,7 +142,7 @@
                             plugins: {
                                 title: {
                                     display: true,
-                                    text: 'Prespuestos en Pesos por Departamento filtrado por Estado',
+                                    text: 'Prespuestos en Pesos por Departamento filtrado por Estado de Ficha de Proyecto',
                                     font: {
                                         size: 20
                                     }
@@ -169,7 +167,7 @@
             if (rol != 1) {
                 Swal.fire({
                     icon: "error",
-                    title: "No esta Autorizado",
+                    title: "No esta autorizado",
                     showConfirmButton: false,
                 });
                 setInterval(() => {
@@ -224,7 +222,7 @@
                     var o = data; //A la variable le asigno el json decodificado
 
                     const labels = [
-                        'ENERGIA',
+                        'ENERGÍA',
                         'MADE',
                         'ASC'
                     ];
@@ -250,7 +248,7 @@
                             plugins: {
                                 title: {
                                     display: true,
-                                    text: 'Prespuestos en Pesos por Departamento filtrado por Estado',
+                                    text: 'Prespuestos en Pesos por Departamento filtrado por Estado de Ficha de Proyecto',
                                     font: {
                                         size: 20
                                     }
@@ -269,7 +267,7 @@
                 error: function (error) {
                     Swal.fire({
                         icon: "error",
-                        title: "Sesión Expirada",
+                        title: "Sesión expirada",
                         showConfirmButton: false
                     });
                     setInterval(() => {

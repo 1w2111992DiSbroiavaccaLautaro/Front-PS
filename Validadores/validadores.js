@@ -3,7 +3,7 @@ $(document).ready(function () {
     if (rol != 1) {
         Swal.fire({
             icon: "error",
-            title: "No esta autorizado",
+            title: "No está autorizado",
             showConfirmButton: false,
         });
         setInterval(() => {
@@ -207,7 +207,7 @@ $(document).on("click", "#btnEditar", function (e) {
                     Swal.fire({
                         position: "center",
                         icon: "success",
-                        title: "Modificacion Exitosa",
+                        title: "Modificación exitosa",
                         showConfirmButton: false,
                         timer: 1500,
                     });
@@ -285,7 +285,7 @@ agregar.addEventListener("click", (e) => {
     if (nombre == "" || titulo == "") {
         Swal.fire({
             icon: "error",
-            title: "Complete los Campos",
+            title: "Complete los campos",
             showConfirmButton: false,
             timer: 1500
         });
@@ -314,14 +314,12 @@ agregar.addEventListener("click", (e) => {
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Insercion Exitosa",
+                    title: "Inserción exitosa",
                     showConfirmButton: false,
                     timer: 1500,
                 });
                 getTabla2();
                 document.getElementById("formulario").reset();
-
-
             }
         });
 })

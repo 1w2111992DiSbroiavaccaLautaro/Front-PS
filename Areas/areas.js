@@ -3,7 +3,7 @@ $(document).ready(function () {
   if (rol != 1) {
     Swal.fire({
       icon: "error",
-      title: "No esta Autorizado",
+      title: "No está Autorizado",
       showConfirmButton: false,
     });
     setInterval(() => {
@@ -21,7 +21,7 @@ $(document).ready(function () {
       .catch((response) => {
         Swal.fire({
           icon: "error",
-          title: "Sesión expirada",
+          title: "Sesión Expirada",
           showConfirmButton: false,
         });
         setInterval(() => {
@@ -189,7 +189,7 @@ $(document).on("click", "#btnEditar", function (e) {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Modificacion Exitosa",
+            title: "Modificación Exitosa",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -211,7 +211,7 @@ $(document).on("click", "#btnEliminar", function (e) {
   e.preventDefault();
 
   Swal.fire({
-    title: "¿Desea Eliminar el Area?",
+    title: "¿Desea Eliminar el Área?",
     showDenyButton: true,
     confirmButtonText: "Eliminar",
     denyButtonText: `Cancelar`,
@@ -240,7 +240,7 @@ $(document).on("click", "#btnEliminar", function (e) {
       });
       Swal.fire({
         icon: "success",
-        title: "Area Eliminada",
+        title: "Área Eliminada",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -248,7 +248,7 @@ $(document).on("click", "#btnEliminar", function (e) {
     } else if (result.isDenied) {
       Swal.fire({
         icon: "info",
-        title: "Area no Eliminada",
+        title: "Área no Eliminada",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -265,7 +265,7 @@ area.addEventListener("click", (e) => {
   if (nuevaArea === "") {
     Swal.fire({
       icon: "error",
-      title: "Ingrese un area",
+      title: "Ingrese un área",
     });
     return false;
   } else {
@@ -291,7 +291,7 @@ area.addEventListener("click", (e) => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Insercion Exitosa",
+            title: "Inserción Exitosa",
             showConfirmButton: false,
             timer: 1500,
           });

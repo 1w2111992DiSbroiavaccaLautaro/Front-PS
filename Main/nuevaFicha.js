@@ -127,21 +127,6 @@ function removerArea(areaIndex, areaId) {
     .remove();
 }
 
-// $(document).on("click", "#btnEliminarArea", function (e) {
-//   e.preventDefault();
-
-//   id = $(this).parent().parent().children().first().text();
-
-//   const eliminadoArea = objAreas.findIndex((object) => {
-//     return object.area1 === id;
-//   });
-
-//   console.log(eliminadoArea);
-//   let area = objAreas.splice(eliminadoArea, 1);
-//   console.log(area);
-//   console.log(objAreas);
-// });
-
 function cargarTablaArea() {
   var area = document.getElementById("txtAreas").value;
   var combo = document.getElementById("txtAreas");
@@ -150,7 +135,7 @@ function cargarTablaArea() {
   if (area == "null") {
     Swal.fire({
       icon: "error",
-      title: "Seleccione un Area",
+      title: "Seleccione un Área",
     });
     return false;
   }
@@ -333,7 +318,7 @@ function imprimirValorPublicacion() {
   ) {
     Swal.fire({
       icon: "error",
-      title: "Ingrese un Año valido",
+      title: "Ingrese un año valido",
       showConfirmButton: true,
     });
     return false;
@@ -341,8 +326,8 @@ function imprimirValorPublicacion() {
   if (!/^([0-9])*$/.test(codigoBcs)) {
     Swal.fire({
       icon: "error",
-      title: "Ingrese un Códigooooooo BCS valido",
-      text: "El Código debe ser unicamente numerico",
+      title: "Ingrese un Código BCS valido",
+      text: "El Código debe ser únicamente númerico",
       showConfirmButton: false,
     });
     return false;
@@ -415,7 +400,7 @@ function cargarTablaPublicacion() {
   ) {
     Swal.fire({
       icon: "error",
-      title: "Ingrese un Año valido",
+      title: "Ingrese un año valido",
       showConfirmButton: true,
     });
     return false;
@@ -424,7 +409,7 @@ function cargarTablaPublicacion() {
     Swal.fire({
       icon: "error",
       title: "Ingrese un Código BCS valido",
-      text: "El Código debe ser unicamente numerico",
+      text: "El Código debe ser únicamente númerico",
       showConfirmButton: true,
     });
     return false;
@@ -715,14 +700,14 @@ boton.addEventListener("click", (e) => {
   if (tit === "") {
     Swal.fire({
       icon: "error",
-      title: "Ingrese un Titulo",
+      title: "Ingrese un Título",
     });
     return false;
   } else {
     Swal.fire({
       position: "center",
       icon: "success",
-      title: "Insercion Exitosa",
+      title: "Inserción exitosa",
       showConfirmButton: false,
       timer: 1500,
     });

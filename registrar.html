@@ -99,7 +99,7 @@
             if (email === "" || pass === "" || nombre == "") {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Complete los Campos',
+                    title: 'Complete los campos',
                 })
                 return false;
             }
@@ -127,7 +127,7 @@
                                     icon: 'success',
                                     title: 'Registro Exitoso',
                                     showConfirmButton: false,
-                                    text: "Ahora sera redirigido al Login"
+                                    text: "Ahora será redirigido al Login"
                                 });
                                 setInterval(() => {
                                     window.location = "../Login/index.html"
@@ -147,12 +147,11 @@
                 else {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Ingrese una Password valida',
-                        text: "La password debe tener entre 8 y 20 caracteres"
+                        title: 'Ingrese un password valido',
+                        text: "El password debe tener entre 8 y 20 caracteres"
                     })
                     return false;
                 }
-
             }
             else {
                 Swal.fire({

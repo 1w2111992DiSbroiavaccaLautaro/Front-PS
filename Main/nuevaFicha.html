@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-
-
     <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
 
     <style>
@@ -45,13 +43,13 @@
         <br>
         <div class="form-row">
             <div class="form-group col-md-8">
-                <label>Titulo</label>
+                <label>Título</label>
                 <input type="text" class="form-control" id="txtTitulo" placeholder="Titulo">
             </div>
             <div class="form-group col-md-4">
                 <label>Departamento</label>
                 <select name="" id="txtDepartamento" class="form-control">
-                    <option value="ENERGIA">ENERGIA</option>
+                    <option value="ENERGIA">ENERGÍA</option>
                     <option value="MADE">MADE</option>
                     <option value="ASC">ASC</option>
                 </select>
@@ -60,8 +58,8 @@
 
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label>Pais/Region</label>
-                <input type="text" class="form-control" name="pais" id="txtPais" placeholder="Pais">
+                <label>País/Región</label>
+                <input type="text" class="form-control" name="pais" id="txtPais" placeholder="País/Región">
             </div>
             <div class="form-group col-md-4">
                 <label>Contratante</label>
@@ -69,7 +67,7 @@
             </div>
             <div class="form-group col-md-4">
                 <label>Dirección</label>
-                <input type="text" class="form-control" id="txtDireccion" placeholder="Direccion">
+                <input type="text" class="form-control" id="txtDireccion" placeholder="Dirección">
             </div>
         </div>
 
@@ -78,21 +76,9 @@
         <h3>Datos del Contrato</h3>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label>Numero</label>
-                <input type="text" class="form-control" id="txtNumero" placeholder="Numero">
+                <label>Número</label>
+                <input type="text" class="form-control" id="txtNumero" placeholder="Número">
             </div>
-            <!-- <div class="form-group col-md-2">
-                <label>Monto</label>
-                <input type="text" class="form-control" id="txtMonto" placeholder="Monto">
-            </div>
-            <div class="form-group col-md-2">
-                <label>Moneda</label>
-                <select id="txtMoneda" class="form-control">
-                    <option value="USD">USD</option>
-                    <option value="EUR">EUR</option>
-                    <option value="PESOS">PESOS</option>
-                </select>
-            </div> -->
             <div class="form-group col-md-2">
                 <label class="text-center" for="">Ejecución</label>
                 <input type="checkbox" class="form-control" id="txtEjecucion">
@@ -151,7 +137,7 @@
 
             <div class="form-group col-md-4">
                 <label>Link</label>
-                <input type="text" class="form-control" id="txtLink">
+                <input type="text" class="form-control" id="txtLink" placeholder="Link">
             </div>
         </div>
 
@@ -164,13 +150,13 @@
 
         <div class="form-row">
             <div class="form-group col-md-12">
-                <label>Descripcion de Proyecto</label>
+                <label>Descripción de Proyecto</label>
                 <textarea name="" id="txtDescProyexto" class="form-control" cols="30" rows="5"></textarea>
             </div>
         </div>
 
         <!-- Presupuesto -->
-        <h3>Presupuesto</h3>
+        <h4>Presupuesto</h4>
         <button type="button" data-toggle="modal" data-target="#exampleModalPresupuesto"
             class="btn btn-primary">+</button>
         <br>
@@ -194,7 +180,7 @@
 
         <!-- Publicaciones -->
         <div>
-            <h3>Publicaciones</h3>
+            <h4>Publicaciones</h4>
             <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">+</button>
         </div>
         <br>
@@ -219,7 +205,7 @@
         <!-- Personal -->
         <div class="form-row">
             <div class="form-group col-md-7">
-                <label>Personal</label>
+                <h5>Personal</h5>
                 <select id="txtPersonal" class="form-control">
                     <option id="idOpcionPersonal" value="null" selected>Seleccione</option>
                 </select>
@@ -231,7 +217,6 @@
                 <table id="mytable" class="container table">
                     <thead class="container">
                         <tr>
-                            <!-- <th>ID</th> -->
                             <th>Personal</th>
                             <th>Coordinador</th>
                             <th>Acciones</th>
@@ -245,7 +230,7 @@
 
             <!-- Areas -->
             <div class="form-group col-md-7">
-                <label>Areas</label>
+                <h5>Áreas</h5>
                 <select id="txtAreas" class="form-control">
                     <option id="idOpcionArea" value="null" selected>Seleccione</option>
                 </select>
@@ -257,7 +242,7 @@
                 <table id="mytableArea" class="container table">
                     <thead class="container">
                         <tr>
-                            <th>Area</th>
+                            <th>Área</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -302,7 +287,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Nueva Publicacion</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Nueva Publicación</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -321,7 +306,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label>Publicacion</label>
+                                <label>Publicación</label>
                                 <textarea class="form-control" name="" id="txtPublicacion" cols="10"
                                     rows="5"></textarea>
                             </div>
@@ -337,12 +322,13 @@
     </div>
 
 
+    <!-- INFO PUBLICACIÓN -->
     <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Publicacion</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Publicación</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -361,7 +347,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label>Publicacion</label>
+                                <label>Publicación</label>
                                 <textarea class="form-control" name="" id="txtPublicacion2" cols="10"
                                     rows="5"></textarea>
                             </div>
@@ -408,7 +394,6 @@
                                 <label for="">Viaticos</label>
                                 <input type="text" class="form-control" id="txtViaticos" placeholder="Viaticos">
                             </div>
-
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -436,7 +421,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Presupuesto</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Presupuesto</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -462,7 +447,6 @@
                                 <label for="">Viaticos</label>
                                 <input type="text" class="form-control" id="txtViaticos2" placeholder="Viaticos">
                             </div>
-
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -472,20 +456,17 @@
                             <div class="form-group col-md-6">
                                 <label for="">Gastos</label>
                                 <input type="text" class="form-control" id="txtGastos2" placeholder="Gastos">
-
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="btnPresupuestoEditar" class="btn btn-primary">Guardar</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="btnPresupuestoEditar" data-dismiss="modal"
+                        class="btn btn-primary">Aceptar</button>
                 </div>
             </div>
         </div>
     </div>
-
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
