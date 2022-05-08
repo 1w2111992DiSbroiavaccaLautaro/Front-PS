@@ -84,6 +84,10 @@ function getTabla() {
       tabla = $("#example").DataTable({
         data: o,
         searching: true,
+        fixedHeader: {
+          header: true,
+          footer: true
+        },
         language: {
           "lengthMenu": "Mostrar _MENU_ registros por página",
           "zeroRecords": "Ningún registro encontrado",
@@ -113,7 +117,8 @@ function getTabla() {
             data: null,
             defaultContent:
               "<button id='btnEliminar' class='btn btn-danger'><box-icon name='trash'></box-icon></button>" +
-              "<button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button>",
+              "<button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button>" +
+              "<button class='btn btn-secondary' id='btnImprimir'><box-icon type='solid' name='printer'></box-icon></box-icon></button>",
           },
         ],
       });
@@ -135,6 +140,10 @@ function getTabla2() {
       tabla = $("#example").DataTable({
         data: o,
         searching: true,
+        fixedHeader: {
+          header: true,
+          footer: true
+        },
         language: {
           "lengthMenu": "Mostrar _MENU_ registros por página",
           "zeroRecords": "Ningún registro encontrado",
@@ -164,7 +173,8 @@ function getTabla2() {
             data: null,
             defaultContent:
               "<button id='btnEliminar' value='id' class='btn btn-danger'><box-icon name='trash'></box-icon></button>" +
-              "<button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button>",
+              "<button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button>" +
+              "<button class='btn btn-secondary' id='btnImprimir'><box-icon type='solid' name='printer'></box-icon></box-icon></button>",
           },
         ],
       });
@@ -181,6 +191,18 @@ $("#example").on("click", "tr", function () {
   // Transform to numeric value
   id = parseInt(id, 10);
   console.log(id);
+});
+
+//------------------IMPRIMIR--------------------
+$(document).on('click', '#btnImprimir', function () {
+  // e.preventDefault();
+
+  console.log(id);
+  localStorage.setItem("idProyectoImprimir", id);
+  window.location = "../Impresion/imprimirProyecto.html"
+  // console.log(codigo,descripcion,precio,stock,fechaVencimiento);
+  // let posibleGanancia = precio * stock;
+  // console.log(posibleGanancia);
 });
 
 //------------------EDITAR----------------------
@@ -315,7 +337,9 @@ function tablaFiltrada(departamento, desde, hasta, paisRegion, area) {
             data: null,
             defaultContent:
               "<button id='btnEliminar' value='id' class='btn btn-danger'><box-icon name='trash'></box-icon></button>" +
-              "<button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button>",
+              "<button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button>" +
+              "<button class='btn btn-secondary' id='btnImprimir'><box-icon type='solid' name='printer'></box-icon></box-icon></button>",
+
           },
         ],
       });
