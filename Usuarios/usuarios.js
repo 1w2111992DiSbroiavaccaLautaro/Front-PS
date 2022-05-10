@@ -1,14 +1,14 @@
 $(document).ready(function () {
   var rol = localStorage.getItem("rol");
   var email = localStorage.getItem("email");
-  if (email == null || email == "") {
+  if (rol != "1") {
     Swal.fire({
       icon: "error",
       title: "No está autorizado",
       showConfirmButton: false,
     });
     setInterval(() => {
-      window.location = "../Login/index.html";
+      window.location = "../index.html";
     }, 2000);
   } else {
     fetch("https://practica-supervisada.herokuapp.com/api/Usuarios", {
@@ -26,7 +26,7 @@ $(document).ready(function () {
           showConfirmButton: false,
         });
         setInterval(() => {
-          window.location = "/Login/index.html";
+          window.location = "../index.html";
         }, 2000);
         return false;
       })
@@ -87,9 +87,6 @@ function getTabla() {
         ],
       });
     },
-    error: function (error) {
-      alert("No hay Reservas");
-    },
   });
 }
 
@@ -134,9 +131,6 @@ function getTabla2() {
         ],
       });
     },
-    error: function (error) {
-      alert("No hay Reservas");
-    },
   });
 }
 
@@ -146,7 +140,7 @@ $(document).on("click", "#btnEliminar", function (e) {
   emailEliminado = $(this).parent().parent().children().first().text();
 
   Swal.fire({
-    title: "¿Desea Eliminar el Usuario?",
+    title: "¿Desea eliminar el usuario?",
     showDenyButton: true,
     confirmButtonText: "Eliminar",
     denyButtonText: `Cancelar`,
@@ -175,7 +169,7 @@ $(document).on("click", "#btnEliminar", function (e) {
       });
       Swal.fire({
         icon: "success",
-        title: "Usuario Eliminad",
+        title: "Usuario eliminado",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -183,7 +177,7 @@ $(document).on("click", "#btnEliminar", function (e) {
     } else if (result.isDenied) {
       Swal.fire({
         icon: "info",
-        title: "Usuario no Eliminado",
+        title: "Usuario no eliminado",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -196,7 +190,6 @@ $(document).on("click", "#btnEditar", function (e) {
   e.preventDefault();
   emailUsuario = $(this).parent().parent().children().first().text();
   var idCambiar = 0;
-
   fetch(
     `https://practica-supervisada.herokuapp.com/api/Usuarios/${emailUsuario}`,
     {
@@ -238,15 +231,13 @@ $(document).on("click", "#btnEditar", function (e) {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Modificacion Exitosa",
+            title: "Modificación exitosa",
             showConfirmButton: false,
             timer: 1500,
           });
           getTabla2();
-          localStorage.setItem(
-            "rol",
-            document.getElementById("txtSelect").value
-          );
+
+          $('#exampleModalEditar').modal('toggle');
         } else {
           Swal.fire({
             icon: "error",

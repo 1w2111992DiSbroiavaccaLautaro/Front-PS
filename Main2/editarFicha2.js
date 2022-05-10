@@ -1,6 +1,5 @@
 var fichaId = localStorage.getItem("idFicha");
 $(document).ready(function () {
-    fichaSeleccionada();
     let token = localStorage.getItem("token");
     if (token === "0" || token === "") {
         Swal.fire({
@@ -77,7 +76,7 @@ $(document).ready(function () {
 let cancelar = document.getElementById("cancelar");
 cancelar.addEventListener("click", (e) => {
     e.preventDefault();
-    location = "main.html";
+    location = "main2.html";
 });
 
 $("#myModal").on("shown.bs.modal", function () {
@@ -194,24 +193,6 @@ function mostrarDatos2Area() {
 }
 
 // ---------------------------PERSONAL-------------------------------------
-// $(document).on("click", "#txtCordinador", function () {
-//     // e.preventDefault();
-//     id = $(this).parent().parent().children().first().text();
-//     console.log(id);
-//     coordinadorOpcion = document.getElementById("txtCordinador").checked;
-
-//     for (const obj of objPersonal) {
-//         if (obj.id === id) {
-//             obj.coordinador = coordinadorOpcion;
-//             break;
-//         }
-//     }
-
-//     console.log(objPersonal);
-// });
-
-// var coordinadorOpcion;
-
 var coordinadorOpcion;
 $(document).on("click", "#txtCordinador", function (personaId) {
     var persona = personaId.target.value;
@@ -364,8 +345,8 @@ function imprimirValorPublicacion() {
         Swal.fire({
             icon: "error",
             title: "Ingrese un código BCS valido",
-            text: "El código BCS debe ser númerico",
             showConfirmButton: true,
+            text: "El código BCS debe ser númerico"
         });
         return false;
     } else {
@@ -446,9 +427,9 @@ function cargarTablaPublicacion() {
     if (!/^([0-9])*$/.test(codigoBcs)) {
         Swal.fire({
             icon: "error",
-            title: "Ingrese un código BCS valido",
+            title: "Ingrese un Código BCS valido",
             showConfirmButton: true,
-            text: "El código BCS debe ser númerico",
+            text: "El código BCS debe ser númerico"
         });
         return false;
     } else {
@@ -495,7 +476,6 @@ function mostrarDatos2Publicacion() {
     });
 }
 
-
 $(document).on("click", "#btnMasInfo", function (e) {
     e.preventDefault();
     console.log(masInfo);
@@ -513,7 +493,6 @@ $(document).on("click", "#btnMasInfo", function (e) {
 });
 
 // --------------------PRESUPUESTO--------------------------
-
 let presupuestos = [];
 var objPresupuesto = [];
 var iPresupuesto = 0;
@@ -564,7 +543,6 @@ function imprimirValorPresupuesto() {
 }
 
 let btnAgregarPresupuesto = document.getElementById("btnPresupuesto");
-
 
 btnAgregarPresupuesto.addEventListener("click", cargarTablaPresupuesto);
 btnAgregarPresupuesto.addEventListener("click", imprimirValorPresupuesto);
@@ -687,7 +665,6 @@ $(document).on("click", "#btnMasInfoPresupuesto", function (e) {
 });
 
 // -----------------------------EDITAR PRESUPUESTO-------------------------------
-
 $(document).on("click", "#btnPresupuesto2", function (presupuestoIndex) {
     imprimirValorPresupuesto2();
     cargarTablaPresupuesto2();
@@ -764,53 +741,6 @@ function mostrarDatos2Presupuesto2() {
     });
 }
 
-// --------------------FICHA LISTA--------------------------
-var comboFicha;
-var comboFichaSeleccionada;
-var fichaLista
-function fichaSeleccionada() {
-    fichaLista = document.getElementById("idFichaLista").checked;
-
-    if (fichaLista) {
-        validarFicha();
-        document.getElementById("comboFicha").disabled = !fichaLista;
-        comboFicha = document.getElementById("comboFicha").value;
-        comboFicha2 = document.getElementById("comboFicha");
-
-        comboFichaSeleccionada =
-            comboFicha2.options[comboFicha2.selectedIndex].text;
-        console.log(comboFichaSeleccionada);
-    } else {
-        document.getElementById("comboFicha").disabled = !fichaLista;
-        comboFicha2 = document.getElementById("comboFicha");
-        comboFichaSeleccionada =
-            comboFicha2.options[comboFicha2.selectedIndex].text;
-        comboFichaSeleccionada = "";
-        comboFicha = -1;
-    }
-}
-
-function cambiarValor() {
-    comboFicha = document.getElementById("comboFicha").value;
-    comboFicha2 = document.getElementById("comboFicha");
-
-    comboFichaSeleccionada = comboFicha2.options[comboFicha2.selectedIndex].text;
-    console.log(comboFichaSeleccionada);
-}
-
-function validarFicha() {
-    var tit = document.getElementById("txtTitulo").value;
-    if (objAreas.length == 0 || objPresupuesto.length == 0 || objPersonal.length == 0 || tit == "") {
-        Swal.fire({
-            icon: "error",
-            title: "Ficha no aceptada",
-            text: "La ficha no puede ser aceptada. Debe tener un presupuesto, área, personal y un título asignado"
-        });
-        fichaLista = document.getElementById("idFichaLista").checked = false;
-        return false;
-    }
-}
-
 // -----------------------RECUPERACION DE DATOS---------------------------
 var indexPresupuesto = 0;
 let enEjecucion = document.getElementById("txtEjecucion").checked;
@@ -832,8 +762,8 @@ fetch("https://practica-supervisada.herokuapp.com/api/proyecto/" + fichaId, {
     .then((response) => response.json())
     .then((data) => {
         console.log(data);
-        document.getElementById("certConformidad").checked =
-            data[0].certconformidad;
+        // document.getElementById("certConformidad").checked =
+        //     data[0].certconformidad;
         document.getElementById("txtTitulo").value = data[0].titulo;
         document.getElementById("txtDepartamento").text = data[0].departamento;
         document.getElementById("txtPais").value = data[0].paisRegion;
@@ -849,16 +779,16 @@ fetch("https://practica-supervisada.herokuapp.com/api/proyecto/" + fichaId, {
         document.getElementById("txtEjecucion").checked = data[0].enCurso;
         document.getElementById("txtConsultores").value = data[0].consultoresAsoc;
         document.getElementById("txtDescProyexto").value = data[0].descripcion;
-        document.getElementById("idFichaLista").checked = data[0].fichaLista;
-        if (document.getElementById("idFichaLista").checked) {
-            document.getElementById("comboFicha").disabled = false;
-            document.getElementById("comboFicha").value = data[0].certificadopor;
-            comboFicha = data[0].certificadopor;
-        }
-        else {
-            document.getElementById("comboFicha").disabled = true;
-            document.getElementById("comboFicha").value = data[0].certificadopor;
-        }
+        //document.getElementById("idFichaLista").checked = data[0].fichaLista;
+        // if (document.getElementById("idFichaLista").checked) {
+        //     document.getElementById("comboFicha").disabled = false;
+        //     document.getElementById("comboFicha").value = data[0].certificadopor;
+        //     comboFicha = data[0].certificadopor;
+        // }
+        // else {
+        //     document.getElementById("comboFicha").disabled = true;
+        //     document.getElementById("comboFicha").value = data[0].certificadopor;
+        // }
         document.getElementById("txtLink").value = data[0].link;
         document.getElementById("txtConvenio").checked = data[0].convenio;
         //onchange="mostrarCoordinador()"
@@ -999,12 +929,12 @@ boton.addEventListener("click", (e) => {
         consultoresAsoc: document.getElementById("txtConsultores").value,
         descripcion: document.getElementById("txtDescProyexto").value,
         resultados: null,
-        fichaLista: document.getElementById("idFichaLista").checked,
+        fichaLista: false,
         enCurso: document.getElementById("txtEjecucion").checked,
         departamento: deptoSeleccionado,
         //moneda: monedaSeleccionada,
-        certconformidad: document.getElementById("certConformidad").checked,
-        certificadopor: comboFicha,
+        certconformidad: false,
+        certificadopor: "-1",
         activo: true,
         listaAreas: objAreas,
         listaPersonal: objPersonal,
@@ -1036,7 +966,7 @@ boton.addEventListener("click", (e) => {
         objAreas = [];
         objPersonal = [];
         setInterval(() => {
-            location = 'main.html';
+            location = 'main2.html';
 
         }, 2000);
         fetch(url, {

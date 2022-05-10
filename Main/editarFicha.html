@@ -22,34 +22,25 @@
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="../Main/main.html">Fundación Bariloche</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="main.html">Inicio <span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
-        </div> -->
     </nav>
 
     <form id="formulario" method="POST" class="container">
         <br>
         <div class="form-row">
             <div class="form-group col-md-8">
-                <label>Titulo</label>
-                <input type="text" class="form-control" id="txtTitulo" placeholder="Titulo">
+                <label>Título</label>
+                <input type="text" class="form-control" id="txtTitulo" placeholder="Título">
             </div>
             <div class="form-group col-md-4">
                 <label>Departamento</label>
                 <select name="" id="txtDepartamento" class="form-control">
-                    <option value="ENERGIA">ENERGIA</option>
+                    <option value="ENERGIA">ENERGÍA</option>
                     <option value="MADE">MADE</option>
                     <option value="ASC">ASC</option>
                 </select>
@@ -58,8 +49,8 @@
 
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label>Pais/Region</label>
-                <input type="text" class="form-control" name="pais" id="txtPais" placeholder="Pais">
+                <label>País/Región</label>
+                <input type="text" class="form-control" name="pais" id="txtPais" placeholder="País/Región">
             </div>
             <div class="form-group col-md-4">
                 <label>Contratante</label>
@@ -67,7 +58,7 @@
             </div>
             <div class="form-group col-md-4">
                 <label>Dirección</label>
-                <input type="text" class="form-control" id="txtDireccion" placeholder="Direccion">
+                <input type="text" class="form-control" id="txtDireccion" placeholder="Dirección">
             </div>
         </div>
 
@@ -76,21 +67,10 @@
         <h3>Datos del Contrato</h3>
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label>Numero</label>
-                <input type="text" class="form-control" id="txtNumero" placeholder="Numero">
+                <label>Número</label>
+                <input type="text" class="form-control" id="txtNumero" placeholder="Número">
             </div>
-            <!-- <div class="form-group col-md-2">
-                <label>Monto</label>
-                <input type="text" class="form-control" id="txtMonto" placeholder="Monto">
-            </div>
-            <div class="form-group col-md-2">
-                <label>Moneda</label>
-                <select id="txtMoneda" class="form-control">
-                    <option value="USD">USD</option>
-                    <option value="EUR">EUR</option>
-                    <option value="PESOS">PESOS</option>
-                </select>
-            </div> -->
+
             <div class="form-group col-md-2">
                 <label class="text-center" for="">Ejecución</label>
                 <input type="checkbox" class="form-control" id="txtEjecucion">
@@ -120,11 +100,11 @@
                     <option value="11" id="idMes">Diciembre</option>
                 </select>
             </div>
-            <div class="form-group col-md-1">
+            <div class="form-group col-md-2">
                 <label>Año Inicio</label>
-                <input type="number" class="form-control" id="txtAnioInicio">
+                <input type="text" class="form-control" id="txtAnioInicio">
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label>Mes Fin</label>
                 <select id="mesHasta" class="form-control">
                     <option selected value="null">Seleccione</option>
@@ -142,14 +122,14 @@
                     <option value="11" id="idMes">Diciembre</option>
                 </select>
             </div>
-            <div class="form-group col-md-1">
+            <div class="form-group col-md-2">
                 <label>Año Fin</label>
-                <input type="number" class="form-control" id="txtAnioFin">
+                <input type="text" class="form-control" id="txtAnioFin">
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 <label>Link</label>
-                <input type="text" class="form-control" id="txtLink">
+                <input type="text" class="form-control" id="txtLink" placeholder="Link">
             </div>
         </div>
 
@@ -162,7 +142,7 @@
 
         <div class="form-row">
             <div class="form-group col-md-12">
-                <label>Descripcion de Proyecto</label>
+                <label>Descripción de Proyecto</label>
                 <textarea name="" id="txtDescProyexto" class="form-control" cols="30" rows="5"></textarea>
             </div>
         </div>
@@ -229,7 +209,6 @@
                 <table id="mytable" class="container table">
                     <thead class="container">
                         <tr>
-                            <!-- <th>ID</th> -->
                             <th>Personal</th>
                             <th>Coordinador</th>
                             <th>Acciones</th>
@@ -257,7 +236,7 @@
                 <table id="mytableArea" class="container table">
                     <thead class="container">
                         <tr>
-                            <th>Area</th>
+                            <th>Área</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -298,8 +277,6 @@
         <br><br>
     </form>
 
-
-
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -319,13 +296,13 @@
                                 <input type="text" class="form-control" id="txtAnioPubli" placeholder="Año">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="">Codigo BCS</label>
-                                <input type="text" class="form-control" id="txtCodigoBcs" placeholder="Codigo BSC">
+                                <label for="">Código BCS</label>
+                                <input type="text" class="form-control" id="txtCodigoBcs" placeholder="Código BSC">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label>Publicacion</label>
+                                <label>Publicación</label>
                                 <textarea class="form-control" name="" id="txtPublicacion" cols="10"
                                     rows="5"></textarea>
                             </div>
@@ -359,13 +336,13 @@
                                 <input type="text" class="form-control" id="txtAnioPubli2" placeholder="Año">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="">Codigo BCS</label>
-                                <input type="text" class="form-control" id="txtCodigoBcs2" placeholder="Codigo BSC">
+                                <label for="">Código BCS</label>
+                                <input type="text" class="form-control" id="txtCodigoBcs2" placeholder="Código BSC">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label>Publicacion</label>
+                                <label>Publicación</label>
                                 <textarea class="form-control" name="" id="txtPublicacion2" cols="10"
                                     rows="5"></textarea>
                             </div>
@@ -394,7 +371,7 @@
                 <div class="modal-body">
                     <form id="formPresupuesto" action="">
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-3">
                                 <label for="">Divisa</label>
                                 <select id="txtDivisa" class="form-control">
                                     <option value="USD">USD</option>
@@ -402,17 +379,14 @@
                                     <option value="PESOS">PESOS</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-5">
                                 <label for="">Honorarios</label>
                                 <input type="text" class="form-control" id="txtHonorario" placeholder="Honorarios">
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="">Viaticos</label>
                                 <input type="text" class="form-control" id="txtViaticos" placeholder="Viaticos">
                             </div>
-
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">

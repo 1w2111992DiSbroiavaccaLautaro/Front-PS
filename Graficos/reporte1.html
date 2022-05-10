@@ -176,42 +176,42 @@
         }
 
         $(document).ready(function () {
-            var rol = localStorage.getItem("rol");
-            if (rol != 1) {
-                Swal.fire({
-                    icon: "error",
-                    title: "No está Autorizado",
-                    showConfirmButton: false,
-                });
-                setInterval(() => {
-                    window.location = "../index.html";
-                }, 100);
-            } else {
-                fetch("https://practica-supervisada.herokuapp.com/api/reportes/reporte1", {
-                    method: "get",
-                    headers: {
-                        Authorization: "Bearer " + localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                })
-                    .then((response) => response.json())
-                    .catch((response) => {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Sesión Expirada",
-                            showConfirmButton: false,
-                        });
-                        setInterval(() => {
-                            window.location = "../index.html";
-                        }, 2000);
-                        return false;
-                    })
-                    .then((json) => {
-                        console.log(json);
-                        hideSpinner();
-                        cargarGrafico();
+            // var rol = localStorage.getItem("rol");
+            // if (rol !== 1 && rol !== 2) {
+            //     Swal.fire({
+            //         icon: "error",
+            //         title: "No está Autorizado",
+            //         showConfirmButton: false,
+            //     });
+            //     setInterval(() => {
+            //         window.location = "../index.html";
+            //     }, 100);
+            // } else {
+            fetch("https://practica-supervisada.herokuapp.com/api/reportes/reporte1", {
+                method: "get",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            })
+                .then((response) => response.json())
+                .catch((response) => {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Sesión Expirada",
+                        showConfirmButton: false,
                     });
-            }
+                    setInterval(() => {
+                        window.location = "../index.html";
+                    }, 2000);
+                    return false;
+                })
+                .then((json) => {
+                    console.log(json);
+                    hideSpinner();
+                    cargarGrafico();
+                });
+
 
         })
 

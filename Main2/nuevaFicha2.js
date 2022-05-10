@@ -1,5 +1,4 @@
 $(document).ready(function () {
-  fichaSeleccionada();
   let token = localStorage.getItem("token");
   if (token === "0" || token === "") {
     Swal.fire({
@@ -76,7 +75,7 @@ $(document).ready(function () {
 let cancelar = document.getElementById("cancelar");
 cancelar.addEventListener("click", (e) => {
   e.preventDefault();
-  location = "main.html";
+  location = "main2.html";
 });
 
 $("#myModal").on("shown.bs.modal", function () {
@@ -654,52 +653,52 @@ $(document).on("click", "#btnMasInfoPresupuesto", function (e) {
 });
 
 // --------------------FICHA LISTA--------------------------
-var comboFicha;
-var comboFichaSeleccionada;
+// var comboFicha;
+// var comboFichaSeleccionada;
 
-var fichaLista = false;
-function fichaSeleccionada() {
+// var fichaLista = false;
+// function fichaSeleccionada() {
 
-  fichaLista = document.getElementById("idFichaLista").checked;
-  if (fichaLista) {
-    validarFicha();
-    document.getElementById("comboFicha").disabled = !fichaLista;
-    comboFicha = document.getElementById("comboFicha").value;
-    comboFicha2 = document.getElementById("comboFicha");
+//   fichaLista = document.getElementById("idFichaLista").checked;
+//   if (fichaLista) {
+//     validarFicha();
+//     document.getElementById("comboFicha").disabled = !fichaLista;
+//     comboFicha = document.getElementById("comboFicha").value;
+//     comboFicha2 = document.getElementById("comboFicha");
 
-    comboFichaSeleccionada =
-      comboFicha2.options[comboFicha2.selectedIndex].text;
-    console.log(comboFichaSeleccionada);
-  } else {
-    document.getElementById("comboFicha").disabled = !fichaLista;
-    comboFicha2 = document.getElementById("comboFicha");
-    comboFichaSeleccionada =
-      comboFicha2.options[comboFicha2.selectedIndex].text;
-    comboFichaSeleccionada = "";
-    comboFicha = -1;
-  }
-}
+//     comboFichaSeleccionada =
+//       comboFicha2.options[comboFicha2.selectedIndex].text;
+//     console.log(comboFichaSeleccionada);
+//   } else {
+//     document.getElementById("comboFicha").disabled = !fichaLista;
+//     comboFicha2 = document.getElementById("comboFicha");
+//     comboFichaSeleccionada =
+//       comboFicha2.options[comboFicha2.selectedIndex].text;
+//     comboFichaSeleccionada = "";
+//     comboFicha = -1;
+//   }
+// }
 
-function cambiarValor() {
-  comboFicha = document.getElementById("comboFicha").value;
-  comboFicha2 = document.getElementById("comboFicha");
+// function cambiarValor() {
+//   comboFicha = document.getElementById("comboFicha").value;
+//   comboFicha2 = document.getElementById("comboFicha");
 
-  comboFichaSeleccionada = comboFicha2.options[comboFicha2.selectedIndex].text;
-  console.log(comboFichaSeleccionada);
-}
+//   comboFichaSeleccionada = comboFicha2.options[comboFicha2.selectedIndex].text;
+//   console.log(comboFichaSeleccionada);
+// }
 
-function validarFicha() {
-  var tit = document.getElementById("txtTitulo").value;
-  if (objAreas.length == 0 || objPresupuesto.length == 0 || objPersonal.length == 0 || tit == "") {
-    Swal.fire({
-      icon: "error",
-      title: "Ficha no aceptada",
-      text: "La ficha no puede ser aceptada. Debe tener un presupuesto, área, personal y un título asignado"
-    });
-    fichaLista = document.getElementById("idFichaLista").checked = false;
-    return false;
-  }
-}
+// function validarFicha() {
+//   var tit = document.getElementById("txtTitulo").value;
+//   if (objAreas.length == 0 || objPresupuesto.length == 0 || objPersonal.length == 0 || tit == "") {
+//     Swal.fire({
+//       icon: "error",
+//       title: "Ficha no aceptada",
+//       text: "La ficha no puede ser aceptada. Debe tener un presupuesto, área, personal y un título asignado"
+//     });
+//     fichaLista = document.getElementById("idFichaLista").checked = false;
+//     return false;
+//   }
+// }
 
 // ----------------------ENVIO DE DATOS---------------------------
 
@@ -746,12 +745,12 @@ boton.addEventListener("click", (e) => {
     consultoresAsoc: document.getElementById("txtConsultores").value,
     descripcion: document.getElementById("txtDescProyexto").value,
     resultados: null,
-    fichaLista: document.getElementById("idFichaLista").checked,
+    fichaLista: false,
     enCurso: document.getElementById("txtEjecucion").checked,
     departamento: deptoSeleccionado,
     //moneda: monedaSeleccionada,
-    certconformidad: document.getElementById("certConformidad").checked,
-    certificadopor: comboFicha,
+    certconformidad: false,
+    certificadopor: "-1",
     activo: true,
     listaAreas: objAreas,
     listaPersonal: objPersonal,

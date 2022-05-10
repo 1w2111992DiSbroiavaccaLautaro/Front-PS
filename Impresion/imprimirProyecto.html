@@ -172,7 +172,27 @@
         let imprimir = document.getElementById("btnImprimir");
         imprimir.addEventListener("click", e => {
             e.preventDefault();
-            Export2Doc('exportContent', 'ficha_proyecto_' + id);
+
+            fetch('https://practica-supervisada.herokuapp.com/api/proyecto/' + id, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(response => response.json())
+                .then((data) => {
+                    if (data[0].fichaLista) {
+                        Export2Doc('exportContent', 'ficha_proyecto_' + id);
+                    }
+                    else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Ficha no lista",
+                            text: "Solo se puede imprimir una ficha de proyecto que este lista"
+                        })
+                        return false;
+                    }
+                })
         })
 
         //var moneda = document.getElementById("moneda").innerHTML;
@@ -198,7 +218,12 @@
                 document.getElementById("contratante").innerHTML = data[0].contratante;
                 moneda = data[0].moneda;
                 //document.getElementById("monto").innerHTML = data[0].montoContrato + " " + moneda;
-                document.getElementById("descripcion").innerHTML = data[0].descripcion;
+                if (data[0].descripcion == "") {
+                    document.getElementById("descripcion").innerHTML = "<strong style='color: grey;'>Sin Descripción Asignada</strong>";
+                }
+                else {
+                    document.getElementById("descripcion").innerHTML = data[0].descripcion;
+                }
                 mes = data[0].mesInicio;
                 if (mes == null) {
                     document.getElementById("fechaInicio").innerHTML = "<strong style='color: grey;'>Sin Fecha Registrada</strong>";

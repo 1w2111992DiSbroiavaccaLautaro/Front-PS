@@ -12,13 +12,13 @@
 
     <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
 
-    <title>Reporte 2</title>
+    <title>Reporte 3</title>
 </head>
 
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="../Main/main.html">Fundación Bariloche</a>
+        <a class="navbar-brand" href="../Main2/main2.html">Fundación Bariloche</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -39,14 +39,11 @@
                 <div class="col-md-12 col-md-offset-2">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
-                            <input type="text" class="form-control" id="txtDesde" placeholder="Año Desde">
-                            <input type="text" class="form-control" id="txtHasta" placeholder="Año Hasta">
                             <select name="" id="txtEstado" class="form-control">
                                 <option value="" selected>Estado</option>
                                 <option value="true">Ficha Lista</option>
                                 <option value="false">Ficha No Lista</option>
                             </select>
-
                             <button id="btnFiltrar" class="btn btn-primary">Filtrar</button>
                             <button id="btnEliminarFiltros" class="btn btn-danger">Eliminar</button>
                         </div>
@@ -92,32 +89,14 @@
         let boton = document.getElementById("btnFiltrar");
         boton.addEventListener("click", e => {
             e.preventDefault();
-
-            var anioDesde = document.getElementById("txtDesde").value;
-            var anioHasta = document.getElementById("txtHasta").value;
             var estado = document.getElementById("txtEstado").value;
 
-            if (anioDesde == "" && anioHasta == "") {
-                cargarGrafico2(anioDesde, anioHasta, estado);
-            }
-            else {
-                if (!/^(1[9-9][6-9][0-9]|20[0-9][0-9]|2100)$/.test(anioDesde) || !/^(1[9-9][6-9][0-9]|20[0-9][0-9]|2100)$/.test(anioHasta)) {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Ingrese un año valido",
-                        showConfirmButton: true,
-                    });
-                    return false;
-                }
-            }
-
-
-            cargarGrafico2(anioDesde, anioHasta, estado);
+            cargarGrafico2(estado);
         })
 
-        function cargarGrafico2(anioDesde, anioHasta, estado) {
+        function cargarGrafico2(estado) {
             $.ajax({
-                url: `https://practica-supervisada.herokuapp.com/api/reportes/reporte2?AnioDesde=${anioDesde}&AnioHasta=${anioHasta}&Estado=${estado}`,
+                url: `https://practica-supervisada.herokuapp.com/api/reportes/reporte3?Estado=${estado}`,
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token"),
                     "Content-Type": "application/json",
@@ -125,7 +104,7 @@
                 success: function (data) {
                     var o = data; //A la variable le asigno el json decodificado
 
-                    if (o.honorarios == 0 && o.viaticos == 0 && o.equipo == 0 && o.gastos == 0) {
+                    if (o.energia == 0 && o.made == 0 && o.asc == 0) {
                         Swal.fire({
                             icon: "info",
                             title: "No hay resultados",
@@ -137,10 +116,9 @@
 
                     myChart.destroy();
                     const labels = [
-                        'Honorarios',
-                        'Viaticos',
-                        'Equipamiento',
-                        'Gastos'
+                        'ENERGÍA',
+                        'MADE',
+                        'ASC'
                     ];
 
                     const datas = {
@@ -148,13 +126,12 @@
                         datasets: [{
                             label: 'Monto $',
                             backgroundColor: [
-                                'rgba(253, 65, 162, 0.8)',
+                                'rgba(255, 0, 0, 0.8)',
                                 'rgba(48, 33, 236, 0.8)',
-                                'rgba(226, 29, 247, 0.8)',
-                                'rgba(29, 245, 247, 0.8)'
+                                'rgba(0, 255, 189, 0.8)',
                             ],
                             borderColor: 'rgb(255, 99, 132)',
-                            data: [o.honorarios, o.viaticos, o.equipo, o.gastos],
+                            data: [o.energia, o.made, o.asc],
                         }]
                     };
 
@@ -165,7 +142,7 @@
                             plugins: {
                                 title: {
                                     display: true,
-                                    text: 'Honorarios, Viaticos, Equipamiento y Gastos de los Proyectos filtrados por rango de Años y Estado',
+                                    text: 'Prespuestos en Pesos por Departamento filtrado por Estado de Ficha de Proyecto',
                                     font: {
                                         size: 20
                                     }
@@ -173,7 +150,6 @@
                             }
                         }
                     };
-
 
                     myChart = new Chart(
                         document.getElementById('myChart'),
@@ -191,14 +167,14 @@
             // if (rol != 1 || rol != 2) {
             //     Swal.fire({
             //         icon: "error",
-            //         title: "No está Autorizado",
+            //         title: "No esta autorizado",
             //         showConfirmButton: false,
             //     });
             //     setInterval(() => {
             //         window.location = "../index.html";
             //     }, 100);
             // } else {
-            fetch("https://practica-supervisada.herokuapp.com/api/reportes/reporte2", {
+            fetch("https://practica-supervisada.herokuapp.com/api/reportes/reporte3", {
                 method: "get",
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token"),
@@ -229,16 +205,14 @@
         let eliminarFiltros = document.getElementById("btnEliminarFiltros");
         eliminarFiltros.addEventListener("click", (e) => {
             e.preventDefault();
-            document.getElementById("txtDesde").value = "";
-            document.getElementById("txtHasta").value = "";
             document.getElementById("txtEstado").value = "";
 
-            cargarGrafico2("", "", "");
+            cargarGrafico2("");
         })
 
         function cargarGrafico() {
             $.ajax({
-                url: `https://practica-supervisada.herokuapp.com/api/reportes/reporte2`,
+                url: `https://practica-supervisada.herokuapp.com/api/reportes/reporte3`,
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token"),
                     "Content-Type": "application/json",
@@ -248,10 +222,9 @@
                     var o = data; //A la variable le asigno el json decodificado
 
                     const labels = [
-                        'Honorarios',
-                        'Viaticos',
-                        'Equipamiento',
-                        'Gastos'
+                        'ENERGÍA',
+                        'MADE',
+                        'ASC'
                     ];
 
                     const datas = {
@@ -259,13 +232,12 @@
                         datasets: [{
                             label: 'Monto $',
                             backgroundColor: [
-                                'rgba(253, 65, 162, 0.8)',
+                                'rgba(255, 0, 0, 0.8)',
                                 'rgba(48, 33, 236, 0.8)',
-                                'rgba(226, 29, 247, 0.8)',
-                                'rgba(29, 245, 247, 0.8)'
+                                'rgba(0, 255, 189, 0.8)',
                             ],
                             borderColor: 'rgb(255, 99, 132)',
-                            data: [o.honorarios, o.viaticos, o.equipo, o.gastos],
+                            data: [o.energia, o.made, o.asc],
                         }]
                     };
 
@@ -276,7 +248,7 @@
                             plugins: {
                                 title: {
                                     display: true,
-                                    text: 'Honorarios, Viaticos, Equipamiento y Gastos en Pesos de los Proyectos filtrados por rango de Años y Estado',
+                                    text: 'Prespuestos en Pesos por Departamento filtrado por Estado de Ficha de Proyecto',
                                     font: {
                                         size: 20
                                     }

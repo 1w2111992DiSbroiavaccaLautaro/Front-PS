@@ -126,10 +126,10 @@
                             if (result.respuesta.rol == 2) {
                                 localStorage.setItem("token", result.respuesta.token);
                                 localStorage.setItem("rol", result.respuesta.rol);
-                                localStorage.setItem("email", result.email);
+                                localStorage.setItem("email", result.respuesta.email);
                                 localStorage.setItem("idUsuario", result.respuesta.idUsuario);
                                 setInterval(() => {
-                                    window.location = "/main2.html"
+                                    window.location = "../Main2/main2.html"
                                 }, 2000)
                             }
 

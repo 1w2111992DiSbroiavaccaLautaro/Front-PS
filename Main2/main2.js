@@ -1,6 +1,6 @@
 $(document).ready(function () {
   var rol = localStorage.getItem("rol");
-  if (rol != 1) {
+  if (rol != 2) {
     Swal.fire({
       icon: "error",
       title: "No esta autorizado",
@@ -118,8 +118,7 @@ function getTabla() {
             data: null,
             defaultContent:
               "<div class='form-row'><div class='form-group'><button id='btnEliminar' class='btn btn-danger'><box-icon name='trash'></box-icon></button></div>" +
-              "<div class='form-group'><button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button></div>" +
-              "<div class='form-group'><button class='btn btn-secondary' id='btnImprimir'><box-icon type='solid' name='printer'></box-icon></box-icon></button></div></div>",
+              "<div class='form-group'><button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button></div>",
           },
         ],
       });
@@ -175,8 +174,7 @@ function getTabla2() {
             data: null,
             defaultContent:
               "<div class='form-row'><div class='form-group'><button id='btnEliminar' class='btn btn-danger'><box-icon name='trash'></box-icon></button></div>" +
-              "<div class='form-group'><button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button></div>" +
-              "<div class='form-group'><button class='btn btn-secondary' id='btnImprimir'><box-icon type='solid' name='printer'></box-icon></box-icon></button></div></div>",
+              "<div class='form-group'><button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button></div>",
           },
         ],
       });
@@ -211,7 +209,7 @@ $(document).on('click', '#btnImprimir', function () {
 $(document).on("click", "#btnEditar", function (e) {
   e.preventDefault();
   localStorage.setItem("idFicha", id);
-  window.location = "editarFicha.html";
+  window.location = "editarFicha2.html";
 });
 
 //Eliminar
@@ -283,7 +281,7 @@ function getTablaFiltrada() {
     if (!/^(1[9-9][6-9][0-9]|20[0-9][0-9]|2100)$/.test(desde) || !/^(1[9-9][6-9][0-9]|20[0-9][0-9]|2100)$/.test(hasta)) {
       Swal.fire({
         icon: "error",
-        title: "Ingrese un Año valido",
+        title: "Ingrese un año valido",
         showConfirmButton: true,
       });
       return false;
@@ -340,9 +338,7 @@ function tablaFiltrada(departamento, desde, hasta, paisRegion, area) {
             data: null,
             defaultContent:
               "<div class='form-row'><div class='form-group'><button id='btnEliminar' class='btn btn-danger'><box-icon name='trash'></box-icon></button></div>" +
-              "<div class='form-group'><button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button></div>" +
-              "<div class='form-group'><button class='btn btn-secondary' id='btnImprimir'><box-icon type='solid' name='printer'></box-icon></box-icon></button></div></div>",
-
+              "<div class='form-group'><button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button></div>",
           },
         ],
       });
