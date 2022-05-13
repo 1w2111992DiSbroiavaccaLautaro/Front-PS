@@ -712,8 +712,8 @@ boton.addEventListener("click", (e) => {
 
   var tit = document.getElementById("txtTitulo").value;
 
-  var depto = document.getElementById("txtDepartamento");
-  var deptoSeleccionado = depto.options[depto.selectedIndex].text;
+  var depto = document.getElementById("txtDepartamento").value;
+
 
   var anioInicio = document.getElementById("txtAnioInicio").value;
   var anioFin = document.getElementById("txtAnioFin").value
@@ -747,7 +747,7 @@ boton.addEventListener("click", (e) => {
     resultados: null,
     fichaLista: false,
     enCurso: document.getElementById("txtEjecucion").checked,
-    departamento: deptoSeleccionado,
+    departamento: depto,
     //moneda: monedaSeleccionada,
     certconformidad: false,
     certificadopor: "-1",

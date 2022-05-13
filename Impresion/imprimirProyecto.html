@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="icon" href="https://fundacionbariloche.org.ar/wp-content/uploads/2020/02/logo_fb_horizontal-3.png">
 
 
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -238,67 +239,91 @@
                 else {
                     document.getElementById("anioFin").innerHTML = data[0].anioFinalizacion + "/" + meses(mesFin);
                 }
-                document.getElementById("consultores").innerHTML = data[0].consultoresAsoc;
+
+                if (data[0].consultoresAsoc === "") {
+                    document.getElementById("consultores").innerHTML = "<strong style='color: grey;'>Sin Consultores Registrados</strong>";
+                }
+                else {
+                    document.getElementById("consultores").innerHTML = data[0].consultoresAsoc;
+                }
 
                 //----------PERSONAL
-                var html = "<ul>"
-                data[0].listaPersonal.forEach(i => {
-                    var nombre = i.nombre;
-                    var coordinador = i.coordinador;
-                    if (coordinador) {
-                        html += "<li id='personal'>" + nombre + " - <strong>Coordinador</strong>" + "</li>";
-                    }
-                    else {
-                        html += "<li id='personal'>" + nombre + " - <strong>No Coordinador</strong>" + "</li>";
-                    }
-                })
-                html += "</ul>"
-                $("#listaPersonal").append(html);
-
+                if (data[0].listaPersonal.length === 0) {
+                    document.getElementById("listaPersonal").innerHTML = "<strong style='color: grey;'>Sin Personal Asignado</strong>"
+                }
+                else {
+                    var html = "<ul>"
+                    data[0].listaPersonal.forEach(i => {
+                        var nombre = i.nombre;
+                        var coordinador = i.coordinador;
+                        if (coordinador) {
+                            html += "<li id='personal'>" + nombre + " - <strong>Coordinador</strong>" + "</li>";
+                        }
+                        else {
+                            html += "<li id='personal'>" + nombre + " - <strong>No Coordinador</strong>" + "</li>";
+                        }
+                    })
+                    html += "</ul>"
+                    $("#listaPersonal").append(html);
+                }
 
                 //--------AREAS
-                var htmlArea = "<ul>"
-                data[0].listaAreas.forEach(i => {
-                    var area = i.area1;
-                    htmlArea += "<li>" + area + "</li>";
-                })
-                htmlArea += "</ul>"
-                $("#listaAreas").append(htmlArea);
+                if (data[0].listaAreas.length === 0) {
+                    document.getElementById("listaAreas").innerHTML = "<strong style='color: grey;'>Sin Áreas Asignadas</strong>"
+                }
+                else {
+                    var htmlArea = "<ul>"
+                    data[0].listaAreas.forEach(i => {
+                        var area = i.area1;
+                        htmlArea += "<li>" + area + "</li>";
+                    })
+                    htmlArea += "</ul>"
+                    $("#listaAreas").append(htmlArea);
+                }
 
                 //---------PRESUPUESTOS
-                var htmlPresupuesto = "<ul>"
-                data[0].listaPresupuestos.forEach(i => {
-                    var honorario = i.honorario;
-                    var viaticos = i.viatico;
-                    var gastos = i.gastos;
-                    var equipo = i.equipamiento;
-                    var divisa = i.divisa;
-                    var montoTotal = i.montototal;
-                    htmlPresupuesto += "<li>Honorarios: $" + honorario + "</li>";
-                    htmlPresupuesto += "<li>Viaticos: $" + viaticos + "</li>";
-                    htmlPresupuesto += "<li>Gastos: $" + gastos + "</li>";
-                    htmlPresupuesto += "<li>Equipamiento: $" + equipo + "</li>";
-                    htmlPresupuesto += "<li>Monto Total: $" + montoTotal + "</li>";
-                    htmlPresupuesto += "<li>Divisa: " + divisa + "</li>";
-                })
-                htmlPresupuesto += "</ul>"
-                $("#listaPresupuesto").append(htmlPresupuesto);
+                if (data[0].listaPresupuestos.length === 0) {
+                    document.getElementById("listaPresupuesto").innerHTML = "<strong style='color: grey;'>Sin Prespuesto Asignado</strong>"
+                }
+                else {
+                    var htmlPresupuesto = "<ul>"
+                    data[0].listaPresupuestos.forEach(i => {
+                        var honorario = i.honorario;
+                        var viaticos = i.viatico;
+                        var gastos = i.gastos;
+                        var equipo = i.equipamiento;
+                        var divisa = i.divisa;
+                        var montoTotal = i.montototal;
+                        htmlPresupuesto += "<li>Honorarios: $" + honorario + "</li>";
+                        htmlPresupuesto += "<li>Viaticos: $" + viaticos + "</li>";
+                        htmlPresupuesto += "<li>Gastos: $" + gastos + "</li>";
+                        htmlPresupuesto += "<li>Equipamiento: $" + equipo + "</li>";
+                        htmlPresupuesto += "<li>Monto Total: $" + montoTotal + "</li>";
+                        htmlPresupuesto += "<li>Divisa: " + divisa + "</li>";
+                    })
+                    htmlPresupuesto += "</ul>"
+                    $("#listaPresupuesto").append(htmlPresupuesto);
+                }
 
                 //---------PUBLICACIONES
-                var htmlPublicacion = "<ul>"
-                data[0].listaPublicaciones.forEach(i => {
-                    var anio = i.año;
-                    var codigo = i.codigobcs;
-                    var publicacion = i.publicacion;
+                if (data[0].listaPublicaciones.length === 0) {
+                    document.getElementById("listaPublicaciones").innerHTML = "<strong style='color: grey;'>Sin Publicaciones Asignadas</strong>"
+                }
+                else {
+                    var htmlPublicacion = "<ul>"
+                    data[0].listaPublicaciones.forEach(i => {
+                        var anio = i.año;
+                        var codigo = i.codigobcs;
+                        var publicacion = i.publicacion;
 
-                    htmlPublicacion += "<li>Publicación: " + publicacion + "</li>";
-                    htmlPublicacion += "<li>Codigo BCS: " + codigo + "</li>";
-                    htmlPublicacion += "<li>Año publicación: " + anio + "</li>";
+                        htmlPublicacion += "<li>Publicación: " + publicacion + "</li>";
+                        htmlPublicacion += "<li>Codigo BCS: " + codigo + "</li>";
+                        htmlPublicacion += "<li>Año publicación: " + anio + "</li>";
 
-                })
-                htmlPublicacion += "</ul>"
-                $("#listaPublicaciones").append(htmlPublicacion);
-
+                    })
+                    htmlPublicacion += "</ul>"
+                    $("#listaPublicaciones").append(htmlPublicacion);
+                }
             })
 
     </script>

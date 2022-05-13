@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="icon" href="https://fundacionbariloche.org.ar/wp-content/uploads/2020/02/logo_fb_horizontal-3.png">
 
     <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
 
@@ -175,18 +176,83 @@
             });
         }
 
+        function cargarGraficoCotizacion() {
+            $.ajax({
+                url: `https://practica-supervisada.herokuapp.com/api/reportes/reporte1?Departamento=${depto}&Estado=${estadp}`,
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+                success: function (data) {
+                    var o = data; //A la variable le asigno el json decodificado
+
+                    if (o.ganancias == 0 && o.perdidas == 0) {
+                        Swal.fire({
+                            icon: "info",
+                            title: "No hay resultados",
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        return false;
+                    }
+
+                    myChart.destroy();
+                    const labels = [
+                        'Ganancias',
+                        'Perdidas',
+                    ];
+
+                    const datas = {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Monto $',
+                            backgroundColor: [
+                                'rgba(253, 65, 162, 0.8)',
+                                'rgba(48, 33, 236, 0.8)',
+                            ],
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: [(o.ganancias * dolar), (o.perdidas * dolar)],
+                        }]
+                    };
+
+                    const config = {
+                        type: 'bar',
+                        data: datas,
+                        options: {
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Ganancias y Perdidas Facturadas en Pesos filtradas por Departamento y Estado de Ficha',
+                                    font: {
+                                        size: 20
+                                    }
+                                }
+                            }
+                        }
+                    };
+
+                    myChart = new Chart(
+                        document.getElementById('myChart'),
+                        config
+                    );
+                },
+                error: function (error) {
+                    console.log(error)
+                },
+            });
+        }
+
+
+
         $(document).ready(function () {
-            // var rol = localStorage.getItem("rol");
-            // if (rol !== 1 && rol !== 2) {
-            //     Swal.fire({
-            //         icon: "error",
-            //         title: "No está Autorizado",
-            //         showConfirmButton: false,
-            //     });
-            //     setInterval(() => {
-            //         window.location = "../index.html";
-            //     }, 100);
-            // } else {
+            fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
+                .then(response => response.json())
+                .then(json => {
+                    console.log(json[0].casa.compra)
+                    dolar = json[0].casa.compra;
+                    euro = json[0].casa.venta;
+                })
+
             fetch("https://practica-supervisada.herokuapp.com/api/reportes/reporte1", {
                 method: "get",
                 headers: {
@@ -211,8 +277,6 @@
                     hideSpinner();
                     cargarGrafico();
                 });
-
-
         })
 
         let eliminarFiltros = document.getElementById("btnEliminarFiltros");
@@ -222,6 +286,12 @@
             document.getElementById("txtEstado").value = "";
 
             cargarGrafico2("", "");
+        })
+
+        let cotizar = document.getElementById("btnCotizar");
+        cotizar.addEventListener("click", e => {
+            e.preventDefault();
+            cargarGraficoCotizacion();
         })
 
         function cargarGrafico() {

@@ -1,6 +1,6 @@
 var fichaId = localStorage.getItem("idFicha");
 $(document).ready(function () {
-    fichaSeleccionada();
+    // fichaSeleccionada();
     let token = localStorage.getItem("token");
     if (token === "0" || token === "") {
         Swal.fire({
@@ -804,7 +804,7 @@ function validarFicha() {
         Swal.fire({
             icon: "error",
             title: "Ficha no aceptada",
-            text: "La ficha no puede ser aceptada. Debe tener un presupuesto, área, personal y un título asignado"
+            text: "La ficha no puede ser aceptada. Debe tener un presupuesto, área, personal y un título asignada"
         });
         fichaLista = document.getElementById("idFichaLista").checked = false;
         return false;
@@ -835,7 +835,7 @@ fetch("https://practica-supervisada.herokuapp.com/api/proyecto/" + fichaId, {
         document.getElementById("certConformidad").checked =
             data[0].certconformidad;
         document.getElementById("txtTitulo").value = data[0].titulo;
-        document.getElementById("txtDepartamento").text = data[0].departamento;
+        document.getElementById("txtDepartamento").value = data[0].departamento;
         document.getElementById("txtPais").value = data[0].paisRegion;
         document.getElementById("txtContratante").value = data[0].contratante;
         document.getElementById("txtDireccion").value = data[0].dirección;
@@ -959,14 +959,16 @@ let boton = document.getElementById("enviar");
 boton.addEventListener("click", (e) => {
     e.preventDefault();
 
+    fichaSeleccionada();
+
     // var moneda = document.getElementById("txtMoneda");
     // var monedaSeleccionada = moneda.options[moneda.selectedIndex].text;
     // console.log(moneda);
 
     var tit = document.getElementById("txtTitulo").value;
 
-    var depto = document.getElementById("txtDepartamento");
-    var deptoSeleccionado = depto.options[depto.selectedIndex].text;
+    var depto = document.getElementById("txtDepartamento").value;
+    //var deptoSeleccionado = depto.options[depto.selectedIndex].text;
 
     var anioInicio = document.getElementById("txtAnioInicio").value;
     var anioFin = document.getElementById("txtAnioFin").value
@@ -1001,7 +1003,7 @@ boton.addEventListener("click", (e) => {
         resultados: null,
         fichaLista: document.getElementById("idFichaLista").checked,
         enCurso: document.getElementById("txtEjecucion").checked,
-        departamento: deptoSeleccionado,
+        departamento: depto,
         //moneda: monedaSeleccionada,
         certconformidad: document.getElementById("certConformidad").checked,
         certificadopor: comboFicha,

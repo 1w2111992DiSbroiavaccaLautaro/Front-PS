@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  fichaSeleccionada();
+  // fichaSeleccionada();
   let token = localStorage.getItem("token");
   if (token === "0" || token === "") {
     Swal.fire({
@@ -694,7 +694,7 @@ function validarFicha() {
     Swal.fire({
       icon: "error",
       title: "Ficha no aceptada",
-      text: "La ficha no puede ser aceptada. Debe tener un presupuesto, área, personal y un título asignado"
+      text: "La ficha no puede ser aceptada. Debe tener un presupuesto, área, personal y un título asignada"
     });
     fichaLista = document.getElementById("idFichaLista").checked = false;
     return false;
@@ -706,6 +706,7 @@ function validarFicha() {
 let boton = document.getElementById("enviar");
 boton.addEventListener("click", (e) => {
   e.preventDefault();
+  fichaSeleccionada();
 
   // var moneda = document.getElementById("txtMoneda");
   // var monedaSeleccionada = moneda.options[moneda.selectedIndex].text;
@@ -713,8 +714,8 @@ boton.addEventListener("click", (e) => {
 
   var tit = document.getElementById("txtTitulo").value;
 
-  var depto = document.getElementById("txtDepartamento");
-  var deptoSeleccionado = depto.options[depto.selectedIndex].text;
+  var depto = document.getElementById("txtDepartamento").value;
+  //var deptoSeleccionado = depto.options[depto.selectedIndex].text;
 
   var anioInicio = document.getElementById("txtAnioInicio").value;
   var anioFin = document.getElementById("txtAnioFin").value
@@ -748,7 +749,7 @@ boton.addEventListener("click", (e) => {
     resultados: null,
     fichaLista: document.getElementById("idFichaLista").checked,
     enCurso: document.getElementById("txtEjecucion").checked,
-    departamento: deptoSeleccionado,
+    departamento: depto,
     //moneda: monedaSeleccionada,
     certconformidad: document.getElementById("certConformidad").checked,
     certificadopor: comboFicha,
