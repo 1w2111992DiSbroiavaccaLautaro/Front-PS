@@ -44,9 +44,9 @@
 
     <main class="form-signin">
         <form method="">
-            <img class="mb-4"
+            <!-- <img class="mb-4"
                 src="https://fundacionbariloche.org.ar/wp-content/uploads/2020/02/logo_fb_horizontal-3.png" alt=""
-                width="150" height="57">
+                width="150" height="57"> -->
             <h1 class="h3 mb-3 fw-normal">Ingrese Credenciales</h1>
 
             <div class="form-floating">
@@ -64,6 +64,8 @@
             <a style="text-decoration: none;" href="registrar.html">¿No posee un Usuario?, Regístrese</a>
         </form>
     </main>
+
+
 
     <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -144,7 +146,11 @@
                         }
                     },
                     error: function (error) {
-                        console.log(error);
+                        Swal.Fire({
+                            icon: "error",
+                            title: "Usuario y/o contraseña incorrectos"
+                        });
+                        return false;
                     }
                 })
             }

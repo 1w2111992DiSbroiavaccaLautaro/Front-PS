@@ -19,7 +19,7 @@
     <link rel="icon" href="https://fundacionbariloche.org.ar/wp-content/uploads/2020/02/logo_fb_horizontal-3.png">
 
     <link rel="stylesheet" href="style.css">
-    <title>Proyectos</title>
+    <title>Fichas</title>
 </head>
 
 <body id="body-pd">
@@ -40,7 +40,7 @@
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div> <a href="#" class="nav_logo">
-                    <i class='bx bx-layer nav_logo-icon'></i><span style="color: white;">Fundación Bariloche</span>
+                    <i class='bx bx-layer nav_logo-icon'></i><span style="color: white;">Fundación Patagonia</span>
                 </a>
                 <div class="nav_list"> <a href="../Usuarios/usuarios2.html" class="nav_link"> <i
                             class='bx bx-user nav_icon'></i> <span class="nav_name">Usuarios</span>
@@ -91,6 +91,7 @@
                             </select>
                             <button id="btnFiltrar" class="btn btn-primary">Filtrar</button>
                             <button id="btnEliminarFiltros" class="btn btn-danger">Quitar</button>
+                            <button id="btnImprimirListado" class="btn btn-secondary">Imprimir</button>
                         </div>
                     </div>
                 </div>
@@ -114,7 +115,9 @@
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="exportContent">
+
+        </tbody>
 
     </table>
     <br>
@@ -128,6 +131,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="main.js"></script>
+    <script src="../Impresion/impresion.js"></script>
 
 </body>
 

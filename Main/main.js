@@ -207,6 +207,11 @@ $(document).on('click', '#btnImprimir', function () {
   // console.log(posibleGanancia);
 });
 
+$(document).on('click', '#btnImprimirListado', function (e) {
+  e.preventDefault();
+  window.location = "../Impresion/imprimirListadoFichas.html"
+});
+
 //------------------EDITAR----------------------
 $(document).on("click", "#btnEditar", function (e) {
   e.preventDefault();
@@ -267,14 +272,18 @@ $(document).on("click", "#btnEliminar", function (e) {
 
 
 // -----------------------------FILTRADO---------------------------------
-
 function getTablaFiltrada() {
-
   var departamento = document.getElementById("txtDepartamento").value;
   var desde = document.getElementById("txtDesde").value;
   var hasta = document.getElementById("txtHasta").value;
   var paisRegion = document.getElementById("txtPaisRegion").value;
-  var area = document.getElementById("txtAreas").value
+  var area = document.getElementById("txtAreas").value;
+
+  localStorage.setItem("desde", desde);
+  localStorage.setItem("hasta", hasta);
+  localStorage.setItem("depto", departamento);
+  localStorage.setItem("paisRegion", paisRegion);
+  localStorage.setItem("area", area);
 
   if (desde == "" && hasta == "") {
     tablaFiltrada(departamento, desde, hasta, paisRegion, area);
@@ -290,25 +299,32 @@ function getTablaFiltrada() {
     }
     else {
       tablaFiltrada(departamento, desde, hasta, paisRegion, area);
-
     }
   }
 
 }
 
+var listadoFichas;
+var departamento;
+var desde;
+var hasta;
+var paisRegion;
+var area;
+
 function tablaFiltrada(departamento, desde, hasta, paisRegion, area) {
   $.ajax({
-    url: `https://practica-supervisada.herokuapp.com/api/proyecto/tabla?Pais=${paisRegion}&AnioInicio=${desde}&AnioFin=${hasta}&Area=${area}&Departamento=${departamento}`,
+    //url: `https://practica-supervisada.herokuapp.com/api/proyecto/tabla?Pais=${paisRegion}&AnioInicio=${desde}&AnioFin=${hasta}&Area=${area}&Departamento=${departamento}`,
+    url: `https://practica-supervisada.herokuapp.com/api/proyecto/lista?Pais=${paisRegion}&AnioInicio=${desde}&AnioFin=${hasta}&Area=${area}&Departamento=${departamento}`,
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
       "Content-Type": "application/json",
     },
     success: function (data) {
-      var o = data; //A la variable le asigno el json decodificado
-      console.log(o);
+      listadoFichas = data; //A la variable le asigno el json decodificado
+      console.log(listadoFichas);
       tabla.destroy();
       tabla = $("#example").DataTable({
-        data: o,
+        data: listadoFichas,
         searching: true,
         language: {
           "lengthMenu": "Mostrar _MENU_ registros por página",
@@ -342,7 +358,6 @@ function tablaFiltrada(departamento, desde, hasta, paisRegion, area) {
               "<div class='form-row'><div class='form-group'><button id='btnEliminar' class='btn btn-danger'><box-icon name='trash'></box-icon></button></div>" +
               "<div class='form-group'><button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button></div>" +
               "<div class='form-group'><button class='btn btn-secondary' id='btnImprimir'><box-icon type='solid' name='printer'></box-icon></box-icon></button></div></div>",
-
           },
         ],
       });

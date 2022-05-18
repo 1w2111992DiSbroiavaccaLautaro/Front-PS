@@ -43,9 +43,9 @@ function cerrarSesion() {
 
 
 var usuarioId = localStorage.getItem("idUsuario");
+var email = localStorage.getItem("email");
 
 function getTabla() {
-  var email = localStorage.getItem("email");
   $.ajax({
     url:
       "https://practica-supervisada.herokuapp.com/api/Usuarios/" + email,
@@ -98,7 +98,7 @@ function getTabla() {
 function getTabla2() {
   $.ajax({
     url:
-      "https://practica-supervisada.herokuapp.com/api/Usuarios/" + emailUsuario,
+      "https://practica-supervisada.herokuapp.com/api/Usuarios/" + email,
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
       "Content-Type": "application/json",
@@ -172,7 +172,7 @@ $(document).on("click", "#btnCambiarPass", function (e) {
       return false;
     } else if (passwordRegex.test(nueva)) {
       var datosPassword = {
-        email: emailUsuario,
+        email: email,
         passwordVieja: vieja,
         passwordNueva: nueva,
       };
@@ -229,7 +229,7 @@ $(document).on("click", "#btnEditar", function (e) {
   //idEditado = $(this).parent().parent().children().first().text();
 
   fetch(
-    `https://practica-supervisada.herokuapp.com/api/Usuarios/${emailUsuario}`,
+    `https://practica-supervisada.herokuapp.com/api/Usuarios/${email}`,
     {
       method: "get",
       headers: {
@@ -256,6 +256,14 @@ $(document).on("click", "#btnEditar", function (e) {
     };
     console.log(datos);
 
+    if (document.getElementById("txtEmail").value === "" || document.getElementById("txtNombre").value === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Complete los campos",
+      });
+      return false;
+    }
+
     fetch(
       `https://practica-supervisada.herokuapp.com/api/Usuarios/UpdateCredenciales`,
       {
@@ -278,6 +286,9 @@ $(document).on("click", "#btnEditar", function (e) {
             timer: 1500,
           });
           getTabla2();
+          setInterval(() => {
+            location = "/index.html";
+          }, 2000)
         } else {
           Swal.fire({
             icon: "error",

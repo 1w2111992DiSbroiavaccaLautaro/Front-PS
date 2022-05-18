@@ -20,7 +20,7 @@
     <!-- dkfjjsdfjkd -->
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="../Main/main.html">Fundación Bariloche</a>
+        <a class="navbar-brand" href="../Main/main.html">Fundación Patagonia</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -132,8 +132,8 @@
 
                     myChart.destroy();
                     const labels = [
-                        'Ganancias',
-                        'Perdidas',
+                        'Ingresos',
+                        'Gastos',
                     ];
 
                     const datas = {
@@ -156,7 +156,7 @@
                             plugins: {
                                 title: {
                                     display: true,
-                                    text: 'Ganancias y Perdidas Facturadas en Pesos filtradas por Departamento y Estado de Ficha',
+                                    text: 'Ingresos y gastos en pesos filtrados por Departamento y Estado de Ficha',
                                     font: {
                                         size: 20
                                     }
@@ -198,8 +198,8 @@
 
                     myChart.destroy();
                     const labels = [
-                        'Ganancias',
-                        'Perdidas',
+                        'Ingresos',
+                        'Gastos',
                     ];
 
                     const datas = {
@@ -211,7 +211,7 @@
                                 'rgba(48, 33, 236, 0.8)',
                             ],
                             borderColor: 'rgb(255, 99, 132)',
-                            data: [(o.ganancias * dolar), (o.perdidas * dolar)],
+                            data: [(o.ganancias), (o.perdidas)],
                         }]
                     };
 
@@ -222,7 +222,7 @@
                             plugins: {
                                 title: {
                                     display: true,
-                                    text: 'Ganancias y Perdidas Facturadas en Pesos filtradas por Departamento y Estado de Ficha',
+                                    text: 'Ingresos y gastos en pesos filtrados por Departamento y Estado de Ficha',
                                     font: {
                                         size: 20
                                     }
@@ -245,13 +245,13 @@
 
 
         $(document).ready(function () {
-            fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
-                .then(response => response.json())
-                .then(json => {
-                    console.log(json[0].casa.compra)
-                    dolar = json[0].casa.compra;
-                    euro = json[0].casa.venta;
-                })
+            // fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
+            //     .then(response => response.json())
+            //     .then(json => {
+            //         console.log(json[0].casa.compra)
+            //         dolar = json[0].casa.compra;
+            //         euro = json[0].casa.venta;
+            //     })
 
             fetch("https://practica-supervisada.herokuapp.com/api/reportes/reporte1", {
                 method: "get",
@@ -288,14 +288,11 @@
             cargarGrafico2("", "");
         })
 
-        let cotizar = document.getElementById("btnCotizar");
-        cotizar.addEventListener("click", e => {
-            e.preventDefault();
-            cargarGraficoCotizacion();
-        })
+
 
         function cargarGrafico() {
             $.ajax({
+                //url: "https://localhost:44343/api/Reportes/Reporte1",
                 url: `https://practica-supervisada.herokuapp.com/api/reportes/reporte1`,
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token"),
@@ -306,8 +303,8 @@
                     var o = data; //A la variable le asigno el json decodificado
 
                     const labels = [
-                        'Ganancias',
-                        'Perdidas',
+                        'Ingresos',
+                        'Gastos',
                     ];
 
                     const datas = {
@@ -330,7 +327,7 @@
                             plugins: {
                                 title: {
                                     display: true,
-                                    text: 'Ganancias y Perdidas Facturadas en Pesos filtradas por Departamento y Estado de Ficha',
+                                    text: 'Ingresos y gastos en pesos filtrados por Departamento y Estado de Ficha',
                                     font: {
                                         size: 20
                                     }
