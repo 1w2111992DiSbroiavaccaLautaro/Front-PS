@@ -571,6 +571,26 @@ btnAgregarPresupuesto.addEventListener("click", imprimirValorPresupuesto);
 btnAgregarPresupuesto.addEventListener("click", mostrarDatosPresupuesto);
 btnAgregarPresupuesto.addEventListener("click", mostrarDatos2Presupuesto);
 
+function nuevoPrespuesto() {
+    if (objPresupuesto.length >= 1) {
+        Swal.fire({
+            icon: "info",
+            title: "Solo debe haber un presupuesto asignado por proyecto"
+        });
+        //$('#exampleModalPresupuesto').modal('target');
+        $('#exampleModalPresupuesto').on('shown.bs.modal', function (e) {
+            $("#exampleModalPresupuesto").modal('hide');
+        })
+        return false;
+    }
+}
+
+let btnMasPresupuesto = document.getElementById("btnMasPresupuesto");
+btnMasPresupuesto.addEventListener("click", e => {
+    e.preventDefault();
+    nuevoPrespuesto();
+})
+
 //var indexPresupuesto = 0;
 
 function removerPresupuesto(indexPresupuesto, presupuestoId) {
@@ -583,20 +603,19 @@ function removerPresupuesto(indexPresupuesto, presupuestoId) {
     console.log(presupuesto);
     console.log(objPresupuesto);
 
-    $("#rowPresupuesto" + indexPresupuesto)
-        .closest("tr")
-        .remove();
+    if (indexPresupuesto === 0) {
+        $("#rowPresupuesto" + (indexPresupuesto))
+            .closest("tr")
+            .remove();
+    } else {
+        $("#rowPresupuesto" + (indexPresupuesto - 1))
+            .closest("tr")
+            .remove();
+    }
+
 }
 
 function cargarTablaPresupuesto() {
-
-    if (objPresupuesto.length >= 1) {
-        Swal.fire({
-            icon: "info",
-            title: "Solo debe haber un presupuesto asignado por proyecto"
-        });
-        return false;
-    }
     var viaticos = document.getElementById("txtViaticos").value;
     var equipamientos = document.getElementById("txtEquipo").value;
     var gastos = document.getElementById("txtGastos").value;
@@ -633,7 +652,7 @@ function cargarTablaPresupuesto() {
         "</td><td> " +
         gastos +
         '</td><td><button class="btn btn-danger" id="btnEliminarPublicacion" onclick="removerPresupuesto(' + indexPresupuesto + "," + iPresupuesto + ')" type=button><box-icon name="trash"></box-icon></button>' +
-        '<button data-toggle="modal" data-target="#exampleModalPresupuestoEditar" onclick="funcionMasInfoPresupuesto( ' + iPresupuesto + ')" id="btnMasInfoPresupuesto" class="btn btn-secondary" type="button"><box-icon name="info-circle"></box-icon></button></td></tr>';
+        '<button data-toggle="modal" data-target="#exampleModalPresupuestoEditar" onclick="funcionMasInfoPresupuesto( ' + iPresupuesto + ')" id="btnMasInfoPresupuesto" class="btn btn-secondary" type="button"><box-icon name="edit"></box-icon></button></td></tr>';
 
     indexPresupuesto++;
 
@@ -669,11 +688,11 @@ const funcionMasInfoPresupuesto = (j) => {
 $(document).on("click", "#btnMasInfoPresupuesto", function (e) {
     e.preventDefault();
     console.log(masInfoPresupuesto)
-    document.getElementById("txtDivisa2").disabled = true
-    document.getElementById("txtHonorario2").disabled = true
-    document.getElementById("txtViaticos2").disabled = true
-    document.getElementById("txtEquipo2").disabled = true
-    document.getElementById("txtGastos2").disabled = true
+    // document.getElementById("txtDivisa2").disabled = true
+    // document.getElementById("txtHonorario2").disabled = true
+    // document.getElementById("txtViaticos2").disabled = true
+    // document.getElementById("txtEquipo2").disabled = true
+    // document.getElementById("txtGastos2").disabled = true
 
     objPresupuesto.forEach((element) => {
         if (element.idpresupuesto == masInfoPresupuesto) {
@@ -688,7 +707,9 @@ $(document).on("click", "#btnMasInfoPresupuesto", function (e) {
 
 // -----------------------------EDITAR PRESUPUESTO-------------------------------
 
-$(document).on("click", "#btnPresupuesto2", function (presupuestoIndex) {
+$(document).on("click", "#btnEditarPresupuesto", function (e) {
+    e.preventDefault();
+    removerPresupuesto(indexPresupuesto, masInfoPresupuesto)
     imprimirValorPresupuesto2();
     cargarTablaPresupuesto2();
     mostrarDatosPresupuesto2();
@@ -736,8 +757,21 @@ function cargarTablaPresupuesto2() {
 
     //var fila = '<tr id="rowPresupuesto' + indexArea + '"><td>' + nombre + '</td><td><button onclick="removerArea(' + indexArea + "," + area + ')" id="btnEliminarArea" class="btn btn-secondary" type=button><box-icon name="trash"></box-icon></button></td></tr>';
 
-    var fila = `<tr id=rowPresupuesto${indexPresupuesto}><td>${montoTotal}</td><td>${divisaSeleccionada}</td><td>${gastos}</td><td><button onclick=removerPresupuesto(${indexPresupuesto}, ${0}) class="btn btn-danger" type=button><box-icon name="trash"></box-icon></button>
-    <button data-toggle="modal" data-target="#exampleModalPresupuestoEditar" id="btnMasInfoPresupuesto" onclick=funcionMasInfoPresupuesto(${indexPresupuesto}) class="btn btn-secondary" type="button"><box-icon name="info-circle"></box-icon></button></td></tr>`;
+    // var fila = `<tr id=rowPresupuesto${indexPresupuesto}><td>${montoTotal}</td><td>${divisaSeleccionada}</td><td>${gastos}</td><td><button onclick=removerPresupuesto(${indexPresupuesto}, ${0}) class="btn btn-danger" type=button><box-icon name="trash"></box-icon></button>
+    // <button data-toggle="modal" data-target="#exampleModalPresupuestoEditar" id="btnMasInfoPresupuesto" onclick=funcionMasInfoPresupuesto(${indexPresupuesto}) class="btn btn-secondary" type="button"><box-icon name="info-circle"></box-icon></button></td></tr>`;
+
+    var fila =
+        '<tr id="rowPresupuesto' +
+        indexPresupuesto +
+        '"><td>' +
+        montoTotal +
+        "</td><td>" +
+        divisaSeleccionada +
+        "</td><td> " +
+        gastos +
+        '</td><td><button class="btn btn-danger" id="btnEliminarPublicacion" onclick="removerPresupuesto(' + indexPresupuesto + "," + iPresupuesto + ')" type=button><box-icon name="trash"></box-icon></button>' +
+        '<button data-toggle="modal" data-target="#exampleModalPresupuestoEditar" onclick="funcionMasInfoPresupuesto( ' + iPresupuesto + ')" id="btnMasInfoPresupuesto" class="btn btn-secondary" type="button"><box-icon name="edit"></box-icon></button></td></tr>';
+
 
     indexPresupuesto++;
 
@@ -937,7 +971,7 @@ fetch("https://practica-supervisada.herokuapp.com/api/proyecto/" + fichaId, {
                 "</td><td> " +
                 i.gastos +
                 '</td><td><button class="btn btn-danger" id="btnEliminarPublicacion" onclick="removerPresupuesto(' + indexPresupuesto + "," + i.idpresupuesto + ')" type=button><box-icon name="trash"></box-icon></button>' +
-                '<button data-toggle="modal" data-target="#exampleModalPresupuestoEditar" onclick="funcionMasInfoPresupuesto( ' + i.idpresupuesto + ')" id="btnMasInfoPresupuesto" class="btn btn-secondary" type="button"><box-icon name="info-circle"></box-icon></button></td></tr>';
+                '<button data-toggle="modal" data-target="#exampleModalPresupuestoEditar" onclick="funcionMasInfoPresupuesto( ' + i.idpresupuesto + ')" id="btnMasInfoPresupuesto" class="btn btn-secondary" type="button"><box-icon name="edit"></box-icon></button></td></tr>';
 
             $("#mytablePresupuesto tr:first").after(fila);
 

@@ -544,9 +544,15 @@ function removerPresupuesto(presupuestoIndex, presupuestoId) {
   console.log(presupuesto);
   console.log(objPresupuesto);
 
-  $("#rowPresupuesto" + presupuestoIndex)
-    .closest("tr")
-    .remove();
+  if (presupuestoIndex === 0) {
+    $("#rowPresupuesto" + (presupuestoIndex))
+      .closest("tr")
+      .remove();
+  } else {
+    $("#rowPresupuesto" + (presupuestoIndex - 1))
+      .closest("tr")
+      .remove();
+  }
 }
 
 function cargarTablaPresupuesto() {
@@ -597,7 +603,7 @@ function cargarTablaPresupuesto() {
     montoTotal +
     "</td><td>" +
     divisaSeleccionada + "</td><td> " + gastos + '</td><td><button class="btn btn-danger" id="btnEliminarPublicacion" onclick="removerPresupuesto(' + indexPresupuesto + "," + iPresupuesto + ')" type=button><box-icon name="trash"></box-icon></button>' +
-    '<button data-toggle="modal" data-target="#exampleModalPresupuestoEditar" onclick="funcionMasInfoPresupuesto( ' + iPresupuesto + ')" id="btnMasInfoPresupuesto" class="btn btn-secondary" type="button"><box-icon name="info-circle"></box-icon></button></td></tr>';
+    '<button data-toggle="modal" data-target="#exampleModalPresupuestoEditar" onclick="funcionMasInfoPresupuesto( ' + iPresupuesto + ')" id="btnMasInfoPresupuesto" class="btn btn-secondary" type="button"><box-icon name="edit"></box-icon></button></td></tr>';
 
   indexPresupuesto++;
 
@@ -635,11 +641,11 @@ const funcionMasInfoPresupuesto = (j) => {
 $(document).on("click", "#btnMasInfoPresupuesto", function (e) {
   e.preventDefault();
   console.log(masInfoPresupuesto)
-  document.getElementById("txtDivisa2").disabled = true
-  document.getElementById("txtHonorario2").disabled = true
-  document.getElementById("txtViaticos2").disabled = true
-  document.getElementById("txtEquipo2").disabled = true
-  document.getElementById("txtGastos2").disabled = true
+  // document.getElementById("txtDivisa2").disabled = true
+  // document.getElementById("txtHonorario2").disabled = true
+  // document.getElementById("txtViaticos2").disabled = true
+  // document.getElementById("txtEquipo2").disabled = true
+  // document.getElementById("txtGastos2").disabled = true
 
   objPresupuesto.forEach((element) => {
     if (element.idProyecto == masInfoPresupuesto) {
@@ -651,6 +657,99 @@ $(document).on("click", "#btnMasInfoPresupuesto", function (e) {
     }
   });
 });
+
+// -----------------------------EDITAR PRESUPUESTO-------------------------------
+
+$(document).on("click", "#btnPresupuestoEditar", function (e) {
+  e.preventDefault();
+  removerPresupuesto(indexPresupuesto, masInfoPresupuesto)
+  imprimirValorPresupuesto2();
+  cargarTablaPresupuesto2();
+  mostrarDatosPresupuesto2();
+  mostrarDatos2Presupuesto2();
+});
+
+function imprimirValorPresupuesto2() {
+  var viaticos = document.getElementById("txtViaticos2").value;
+  var equipamientos = document.getElementById("txtEquipo2").value;
+  var gastos = document.getElementById("txtGastos2").value;
+  var honorarios = document.getElementById("txtHonorario2").value;
+  var divisa = document.getElementById("txtDivisa2");
+  var divisaSeleccionada = divisa.options[divisa.selectedIndex].text;
+  var montoTotal =
+    parseFloat(viaticos) +
+    parseFloat(equipamientos) +
+    parseFloat(honorarios) -
+    parseFloat(gastos);
+
+  objPresupuesto.push({
+    honorario: parseFloat(honorarios),
+    viatico: parseFloat(viaticos),
+    equipamiento: parseFloat(equipamientos),
+    gastos: parseFloat(gastos),
+    idProyecto: iPresupuesto,
+    divisa: divisaSeleccionada,
+    montototal: montoTotal,
+  });
+
+  console.log(objPresupuesto);
+}
+
+function cargarTablaPresupuesto2() {
+  var viaticos = document.getElementById("txtViaticos2").value;
+  var equipamientos = document.getElementById("txtEquipo2").value;
+  var gastos = document.getElementById("txtGastos2").value;
+  var honorarios = document.getElementById("txtHonorario2").value;
+  var divisa = document.getElementById("txtDivisa2");
+  var divisaSeleccionada = divisa.options[divisa.selectedIndex].text;
+  var montoTotal =
+    parseFloat(viaticos) +
+    parseFloat(equipamientos) +
+    parseFloat(honorarios) -
+    parseFloat(gastos);
+
+  //var fila = '<tr id="rowPresupuesto' + indexArea + '"><td>' + nombre + '</td><td><button onclick="removerArea(' + indexArea + "," + area + ')" id="btnEliminarArea" class="btn btn-secondary" type=button><box-icon name="trash"></box-icon></button></td></tr>';
+
+  // var fila = `<tr id=rowPresupuesto${indexPresupuesto}><td>${montoTotal}</td><td>${divisaSeleccionada}</td><td>${gastos}</td><td><button onclick=removerPresupuesto(${indexPresupuesto}, ${0}) class="btn btn-danger" type=button><box-icon name="trash"></box-icon></button>
+  // <button data-toggle="modal" data-target="#exampleModalPresupuestoEditar" id="btnMasInfoPresupuesto" onclick=funcionMasInfoPresupuesto(${indexPresupuesto}) class="btn btn-secondary" type="button"><box-icon name="info-circle"></box-icon></button></td></tr>`;
+
+  var fila =
+    '<tr id="rowPresupuesto' +
+    indexPresupuesto +
+    '"><td>' +
+    montoTotal +
+    "</td><td>" +
+    divisaSeleccionada +
+    "</td><td> " +
+    gastos +
+    '</td><td><button class="btn btn-danger" id="btnEliminarPublicacion" onclick="removerPresupuesto(' + indexPresupuesto + "," + iPresupuesto + ')" type=button><box-icon name="trash"></box-icon></button>' +
+    '<button data-toggle="modal" data-target="#exampleModalPresupuestoEditar" onclick="funcionMasInfoPresupuesto( ' + iPresupuesto + ')" id="btnMasInfoPresupuesto" class="btn btn-secondary" type="button"><box-icon name="edit"></box-icon></button></td></tr>';
+
+
+  indexPresupuesto++;
+
+  $("#mytablePresupuesto tr:first").after(fila);
+}
+
+function mostrarDatosPresupuesto2() {
+  for (let row of mytablePresupuesto.rows) {
+    for (let cell of row.cells) {
+      console.log(cell);
+      console.log(cell.textContent);
+      console.log(cell.firstChild);
+    }
+  }
+}
+
+function mostrarDatos2Presupuesto2() {
+  $("#mytablePresupuesto tr").each(function () {
+    $(this)
+      .find("td")
+      .each(function () {
+        console.log($(this));
+      });
+  });
+}
 
 // --------------------FICHA LISTA--------------------------
 // var comboFicha;

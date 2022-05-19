@@ -400,7 +400,7 @@
                 <div class="modal-body">
                     <form id="formPresupuesto" action="">
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-3">
                                 <label for="">Divisa</label>
                                 <select id="txtDivisa2" class="form-control">
                                     <option value="USD">USD</option>
@@ -408,17 +408,14 @@
                                     <option value="PESOS">PESOS</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-5">
                                 <label for="">Honorarios</label>
                                 <input type="text" class="form-control" id="txtHonorario2" placeholder="Honorarios">
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="">Viaticos</label>
                                 <input type="text" class="form-control" id="txtViaticos2" placeholder="Viaticos">
                             </div>
-
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -433,7 +430,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-primary">Aceptar</button>
+                    <button type="button" id="btnEditarPresupuesto" class="btn btn-primary">Actualizar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>
