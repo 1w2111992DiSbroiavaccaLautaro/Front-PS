@@ -9,7 +9,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     <link rel="icon" href="https://fundacionbariloche.org.ar/wp-content/uploads/2020/02/logo_fb_horizontal-3.png">
 
     <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
@@ -42,16 +41,29 @@
                 <div class="col-md-12 col-md-offset-2">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
+                            <!-- <div class="input-group">
+                                Dólar<input id="btnCotizacionDolar" type="checkbox" class="form-control"
+                                    name="cotizacion">
+                                Euro<input id="btnCotizacionEuro" type="checkbox" class="form-control"
+                                    name="cotizacion">
+                            </div> -->
                             <select name="" id="txtDepartamento" class="form-control">
                                 <option value="" selected>Departamento</option>
                                 <option value="ENERGIA">ENERGÍA</option>
                                 <option value="MADE">MADE</option>
                                 <option value="ASC">ASC</option>
                             </select>
+
                             <select name="" id="txtEstado" class="form-control">
                                 <option value="" selected>Estado</option>
                                 <option value="true">Ficha Lista</option>
                                 <option value="false">Ficha No Lista</option>
+                            </select>
+
+                            <select name="" class="form-control" id="btnCotizacion">
+                                <option value="Pes" selected>Pesos</option>
+                                <option value="Dol">Dólar</option>
+                                <option value="Eur">Euro</option>
                             </select>
 
                             <button id="btnFiltrar" class="btn btn-primary">Filtrar</button>
@@ -63,13 +75,14 @@
         </div>
     </form>
 
+
     <div class="p-3 text-center">
         <div id="spinner" class="spinner-border" role="status">
             <span class="visually-hidden">Cargando...</span>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" style="height:20vh; width:60vw">
         <canvas id="myChart"></canvas>
     </div>
     <br><br>
@@ -101,17 +114,96 @@
             .then(res => res.json())
             .then(json => console.log(json))
 
+
         let boton = document.getElementById("btnFiltrar");
         boton.addEventListener("click", e => {
             e.preventDefault();
-
             var depto = document.getElementById("txtDepartamento").value;
             var estadp = document.getElementById("txtEstado").value;
 
-            cargarGrafico2(depto, estadp);
+            var seleccionado = document.getElementById("btnCotizacion").value;
+            if (seleccionado === "Dol") {
+                moneda = dolar;
+                cargarGrafico2(depto, estadp, dolar);
+            } if (seleccionado === "Eur") {
+                moneda = euro;
+                cargarGrafico2(depto, estadp, euro);
+            } if (seleccionado === "Pes") {
+                moneda = 1;
+                cargarGrafico2(depto, estadp, 1);
+            }
+
+
         })
 
-        function cargarGrafico2(depto, estadp) {
+        function cargarGrafico2(depto, estadp, moneda) {
+            $.ajax({
+                url: `https://practica-supervisada.herokuapp.com/api/reportes/reporte1?Departamento=${depto}&Estado=${estadp}`,
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+                success: function (data) {
+                    var o = data; //A la variable le asigno el json decodificado
+                    var monedaInt = parseFloat(moneda);
+
+                    if (o.ganancias == 0 && o.perdidas == 0) {
+                        Swal.fire({
+                            icon: "info",
+                            title: "No hay resultados",
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        return false;
+                    }
+
+                    myChart.destroy();
+                    const labels = [
+                        'Ingresos',
+                        'Gastos',
+                    ];
+
+                    const datas = {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Monto $',
+                            backgroundColor: [
+                                'rgba(253, 65, 162, 0.8)',
+                                'rgba(48, 33, 236, 0.8)',
+                            ],
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: [(o.ganancias / monedaInt), (o.perdidas / monedaInt)],
+                        }]
+                    };
+
+                    const config = {
+                        type: 'bar',
+                        data: datas,
+                        options: {
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Ingresos y gastos en pesos filtrados por Departamento y Estado de Ficha',
+                                    font: {
+                                        size: 20
+                                    }
+                                }
+                            }
+                        }
+                    };
+
+                    myChart = new Chart(
+                        document.getElementById('myChart'),
+                        config
+                    );
+                },
+                error: function (error) {
+                    console.log(error)
+                },
+            });
+        }
+
+        function cargarGraficoCotizacion() {
             $.ajax({
                 url: `https://practica-supervisada.herokuapp.com/api/reportes/reporte1?Departamento=${depto}&Estado=${estadp}`,
                 headers: {
@@ -146,7 +238,7 @@
                                 'rgba(48, 33, 236, 0.8)',
                             ],
                             borderColor: 'rgb(255, 99, 132)',
-                            data: [o.ganancias, o.perdidas],
+                            data: [(o.ganancias), (o.perdidas)],
                         }]
                     };
 
@@ -178,17 +270,13 @@
         }
 
         $(document).ready(function () {
-            // var rol = localStorage.getItem("rol");
-            // if (rol !== 1 && rol !== 2) {
-            //     Swal.fire({
-            //         icon: "error",
-            //         title: "No está Autorizado",
-            //         showConfirmButton: false,
-            //     });
-            //     setInterval(() => {
-            //         window.location = "../index.html";
-            //     }, 100);
-            // } else {
+            fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
+                .then(response => response.json())
+                .then(json => {
+                    dolar = json[0].casa.compra;
+                    euro = json[0].casa.venta;
+                })
+
             fetch("https://practica-supervisada.herokuapp.com/api/reportes/reporte1", {
                 method: "get",
                 headers: {
@@ -213,8 +301,6 @@
                     hideSpinner();
                     cargarGrafico();
                 });
-
-
         })
 
         let eliminarFiltros = document.getElementById("btnEliminarFiltros");
@@ -222,12 +308,21 @@
             e.preventDefault();
             document.getElementById("txtDepartamento").value = "";
             document.getElementById("txtEstado").value = "";
-
-            cargarGrafico2("", "");
+            document.getElementById("btnCotizacion").value = "Pes";
+            cargarGrafico2("", "", 1);
         })
+
+        // let cotizacion = document.getElementById("btnCotizacion");
+        // cotizacion.addEventListener("change", e => {
+        //     e.preventDefault();
+
+
+
+        // })
 
         function cargarGrafico() {
             $.ajax({
+                //url: "https://localhost:44343/api/Reportes/Reporte1",
                 url: `https://practica-supervisada.herokuapp.com/api/reportes/reporte1`,
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token"),

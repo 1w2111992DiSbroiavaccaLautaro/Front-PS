@@ -48,19 +48,20 @@ $(document).ready(function () {
       });
   }
 
-  function cargarComboAreas(datos) {
-    var html = "<option value=''>Áreas</option>";
-    $("#txtAreas").append(html);
-    select = document.getElementById("txtAreas");
-    for (let i = 0; i < datos.length; i++) {
-      var option = document.createElement("option");
-      option.value = datos[i].id;
-      option.text = datos[i].area1;
-      select.add(option);
-      //console.log(datos[i].area1);
-    }
-  }
 });
+
+function cargarComboAreas(datos) {
+  var html = "<option value=''>Áreas</option>";
+  $("#txtAreas").append(html);
+  select = document.getElementById("txtAreas");
+  for (let i = 0; i < datos.length; i++) {
+    var option = document.createElement("option");
+    option.value = datos[i].id;
+    option.text = datos[i].area1;
+    select.add(option);
+    //console.log(datos[i].area1);
+  }
+}
 
 function hideSpinner() {
   document.getElementById("spinner").style.display = "none";
@@ -89,11 +90,11 @@ function getTabla() {
           footer: true
         },
         language: {
-          "lengthMenu": "Mostrar _MENU_ registros por página",
-          "zeroRecords": "Ningún registro encontrado",
-          "infoEmpty": "Ningún registro disponible",
+          "lengthMenu": "Mostrar _MENU_ proyectos por página",
+          "zeroRecords": "Ningún proyecto encontrado",
+          "infoEmpty": "Ningún proyecto disponible",
           "search": "Búscar",
-          "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+          "sInfo": "Mostrando proyectos del _START_ al _END_ de un total de _TOTAL_ proyectos",
           "oPaginate": {
             "sFirst": "Primero",
             "sLast": "Último",
@@ -145,11 +146,11 @@ function getTabla2() {
           footer: true
         },
         language: {
-          "lengthMenu": "Mostrar _MENU_ registros por página",
-          "zeroRecords": "Ningún registro encontrado",
-          "infoEmpty": "Ningún registro disponible",
+          "lengthMenu": "Mostrar _MENU_ proyectos por página",
+          "zeroRecords": "Ningún proyecto encontrado",
+          "infoEmpty": "Ningún proyecto disponible",
           "search": "Búscar",
-          "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+          "sInfo": "Mostrando proyectos del _START_ al _END_ de un total de _TOTAL_ proyectos",
           "oPaginate": {
             "sFirst": "Primero",
             "sLast": "Último",
@@ -264,6 +265,39 @@ $(document).on("click", "#btnEliminar", function (e) {
 });
 
 
+let comboDeptos = document.getElementById("txtDepartamento");
+comboDeptos.addEventListener("change", e => {
+  e.preventDefault();
+  departamento = document.getElementById("txtDepartamento").value;
+  limpiar(selectAreas);
+  mostrarAreas(departamento);
+})
+
+var selectAreas = document.getElementById("txtAreas");
+
+const limpiar = (selectAreas) => {
+  for (let i = selectAreas.options.length; i >= 0; i--) {
+    selectAreas.remove(i);
+  }
+};
+
+
+function mostrarAreas(depto) {
+  fetch(`https://practica-supervisada.herokuapp.com/api/area/areaxdepto?depto=${depto}`, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data)
+      cargarComboAreas(data);
+      data = [];
+    });
+}
+
+
 // -----------------------------FILTRADO---------------------------------
 
 function getTablaFiltrada() {
@@ -309,11 +343,11 @@ function tablaFiltrada(departamento, desde, hasta, paisRegion, area) {
         data: o,
         searching: true,
         language: {
-          "lengthMenu": "Mostrar _MENU_ registros por página",
-          "zeroRecords": "Ningún registro encontrado",
-          "infoEmpty": "Ningún registro disponible",
+          "lengthMenu": "Mostrar _MENU_ proyectos por página",
+          "zeroRecords": "Ningún proyecto encontrado",
+          "infoEmpty": "Ningún proyecto disponible",
           "search": "Búscar",
-          "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+          "sInfo": "Mostrando proyectos del _START_ al _END_ de un total de _TOTAL_ proyectos",
           "oPaginate": {
             "sFirst": "Primero",
             "sLast": "Último",

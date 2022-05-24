@@ -48,6 +48,11 @@
                                 <option value="true">Ficha Lista</option>
                                 <option value="false">Ficha No Lista</option>
                             </select>
+                            <select name="" class="form-control" id="btnCotizacion">
+                                <option value="Pes" selected>Pesos</option>
+                                <option value="Dol">Dólar</option>
+                                <option value="Eur">Euro</option>
+                            </select>
 
                             <button id="btnFiltrar" class="btn btn-primary">Filtrar</button>
                             <button id="btnEliminarFiltros" class="btn btn-danger">Eliminar</button>
@@ -64,7 +69,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" style="height:20vh; width:60vw">
         <canvas id="myChart"></canvas>
     </div>
 
@@ -98,9 +103,19 @@
             var anioDesde = document.getElementById("txtDesde").value;
             var anioHasta = document.getElementById("txtHasta").value;
             var estado = document.getElementById("txtEstado").value;
+            var seleccionado = document.getElementById("btnCotizacion").value;
 
             if (anioDesde == "" && anioHasta == "") {
-                cargarGrafico2(anioDesde, anioHasta, estado);
+                if (seleccionado === "Dol") {
+                    moneda = dolar;
+                    cargarGrafico2(anioDesde, anioHasta, estado, moneda);
+                } if (seleccionado === "Eur") {
+                    moneda = euro;
+                    cargarGrafico2(anioDesde, anioHasta, estado, moneda);
+                } if (seleccionado === "Pes") {
+                    moneda = 1;
+                    cargarGrafico2(anioDesde, anioHasta, estado, moneda);
+                }
             }
             else {
                 if (!/^(1[9-9][6-9][0-9]|20[0-9][0-9]|2100)$/.test(anioDesde) || !/^(1[9-9][6-9][0-9]|20[0-9][0-9]|2100)$/.test(anioHasta)) {
@@ -112,12 +127,20 @@
                     return false;
                 }
             }
+            if (seleccionado === "Dol") {
+                moneda = dolar;
+                cargarGrafico2(anioDesde, anioHasta, estado, moneda);
+            } if (seleccionado === "Eur") {
+                moneda = euro;
+                cargarGrafico2(anioDesde, anioHasta, estado, moneda);
+            } if (seleccionado === "Pes") {
+                moneda = 1;
+                cargarGrafico2(anioDesde, anioHasta, estado, moneda);
+            }
 
-
-            cargarGrafico2(anioDesde, anioHasta, estado);
         })
 
-        function cargarGrafico2(anioDesde, anioHasta, estado) {
+        function cargarGrafico2(anioDesde, anioHasta, estado, moneda) {
             $.ajax({
                 url: `https://practica-supervisada.herokuapp.com/api/reportes/reporte2?AnioDesde=${anioDesde}&AnioHasta=${anioHasta}&Estado=${estado}`,
                 headers: {
@@ -126,6 +149,7 @@
                 },
                 success: function (data) {
                     var o = data; //A la variable le asigno el json decodificado
+                    monedaInt = parseFloat(moneda);
 
                     if (o.honorarios == 0 && o.viaticos == 0 && o.equipo == 0 && o.gastos == 0) {
                         Swal.fire({
@@ -156,7 +180,7 @@
                                 'rgba(29, 245, 247, 0.8)'
                             ],
                             borderColor: 'rgb(255, 99, 132)',
-                            data: [o.honorarios, o.viaticos, o.equipo, o.gastos],
+                            data: [(o.honorarios / monedaInt), (o.viaticos / monedaInt), (o.equipo / monedaInt), (o.gastos / monedaInt)],
                         }]
                     };
 
@@ -189,17 +213,13 @@
         }
 
         $(document).ready(function () {
-            // var rol = localStorage.getItem("rol");
-            // if (rol != 1 || rol != 2) {
-            //     Swal.fire({
-            //         icon: "error",
-            //         title: "No está Autorizado",
-            //         showConfirmButton: false,
-            //     });
-            //     setInterval(() => {
-            //         window.location = "../index.html";
-            //     }, 100);
-            // } else {
+            fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
+                .then(response => response.json())
+                .then(json => {
+                    dolar = json[0].casa.compra;
+                    euro = json[0].casa.venta;
+                })
+
             fetch("https://practica-supervisada.herokuapp.com/api/reportes/reporte2", {
                 method: "get",
                 headers: {
@@ -234,8 +254,9 @@
             document.getElementById("txtDesde").value = "";
             document.getElementById("txtHasta").value = "";
             document.getElementById("txtEstado").value = "";
+            document.getElementById("btnCotizacion").value = "Pes";
 
-            cargarGrafico2("", "", "");
+            cargarGrafico2("", "", "", 1);
         })
 
         function cargarGrafico() {
