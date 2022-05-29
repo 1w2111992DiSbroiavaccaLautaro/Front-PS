@@ -21,6 +21,8 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="../Main/main.html">Fundación Patagonia</a>
+        <a class="nav-item nav-link" href="reporte2.html">Reporte 2</a>
+        <a class="nav-item nav-link" href="reporte3.html">Reporte 3</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -68,6 +70,7 @@
 
                             <button id="btnFiltrar" class="btn btn-primary">Filtrar</button>
                             <button id="btnEliminarFiltros" class="btn btn-danger">Eliminar</button>
+                            <button id="btnImprimir" class="btn btn-secondary">Imprimir</button>
                         </div>
                     </div>
                 </div>
@@ -82,8 +85,10 @@
         </div>
     </div>
 
-    <div class="container" style="height:20vh; width:60vw">
-        <canvas id="myChart"></canvas>
+    <div id="exportContent">
+        <div class="container" style="height:20vh; width:60vw">
+            <canvas id="myChart"></canvas>
+        </div>
     </div>
     <br><br>
 
@@ -99,12 +104,21 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
+    <script src="impresionGraficos.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
+
+        let imprimir = document.getElementById("btnImprimir");
+        imprimir.addEventListener("click", e => {
+            e.preventDefault();
+
+            Export2Doc('exportContent', 'reporte1');
+        })
 
         function hideSpinner() {
             document.getElementById("spinner").style.display = "none";
@@ -132,8 +146,6 @@
                 moneda = 1;
                 cargarGrafico2(depto, estadp, 1);
             }
-
-
         })
 
         function cargarGrafico2(depto, estadp, moneda) {

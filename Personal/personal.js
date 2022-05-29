@@ -10,7 +10,7 @@ $(document).ready(function () {
             window.location = "../index.html";
         }, 100);
     } else {
-        fetch("https://practica-supervisada.herokuapp.com/api/personal", {
+        fetch("https://practica-supervisada.herokuapp.com/api/Personal", {
             method: "get",
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
@@ -32,45 +32,27 @@ $(document).ready(function () {
             .then((json) => {
                 console.log(json);
                 hideSpinner();
-                //getTabla();
-                cargarComboPersonal(json)
+                getTabla();
             });
     }
 });
 
-function cargarComboPersonal(datos) {
-    var html = "";
-    $("#txtPersonal").append(html);
-    select = document.getElementById("txtPersonal");
-    for (let i = 0; i < datos.length; i++) {
-        var option = document.createElement("option");
-        option.value = datos[i].id;
-        option.text = datos[i].nombre;
-        select.add(option);
-        //console.log(datos[i].area1);
-    }
+function cerrarSesion() {
+    localStorage.setItem("token", 0);
 }
 
 function hideSpinner() {
     document.getElementById("spinner").style.display = "none";
 }
 
-$(document).ready(function () {
-    getDatosInicial();
-})
-
-
-function getDatosInicial() {
-    fetch(`https://practica-supervisada.herokuapp.com/api/personal/personalxproyecto?id=24&fichaLista=false`, {
-        method: "GET", // or 'PUT'
+function getTabla() {
+    $.ajax({
+        url: "https://practica-supervisada.herokuapp.com/api/Personal",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
             "Content-Type": "application/json",
         },
-    })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data)
+        success: function (data) {
             var o = data; //A la variable le asigno el json decodificado
             console.log(o);
             tabla = $("#example").DataTable({
@@ -78,11 +60,11 @@ function getDatosInicial() {
                 rowId: "id",
                 searching: true,
                 language: {
-                    "lengthMenu": "Mostrar _MENU_ proyectos por página",
-                    "zeroRecords": "Ningún proyecto encontrado",
-                    "infoEmpty": "Ningún proyecto disponible",
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "Ningún registro encontrado",
+                    "infoEmpty": "Ningún registro disponible",
                     "search": "Búscar",
-                    "sInfo": "Mostrando proyectos del _START_ al _END_ de un total de _TOTAL_ proyectos",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
                     "oPaginate": {
                         "sFirst": "Primero",
                         "sLast": "Último",
@@ -90,34 +72,33 @@ function getDatosInicial() {
                         "sPrevious": "Anterior"
                     },
                 },
-                order: [0, "desc"],
+                order: [0, "asc"],
                 columns: [
-                    { data: "titulo" },
-                    { data: "anioInicio" },
-                    { data: "anioFin" },
-                    { data: "fichaLista" },
-                    { data: "coordinador" },
+                    { data: "nombre" },
+                    {
+                        data: null,
+                        defaultContent:
+                            "<button id='btnEliminar' class='btn btn-danger'><box-icon name='trash'></box-icon></button>" +
+                            "<button id='btnEditar' data-bs-toggle='modal' data-bs-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button>",
+                    },
                 ],
             });
-        })
-
+        },
+        error: function (error) {
+            console.log("Cargando");
+        },
+    });
 }
 
 
-function getDatos(idPersonal, fichaLista) {
-    if (fichaLista === "") {
-        fichaLista = false;
-    }
-    fetch(`https://practica-supervisada.herokuapp.com/api/personal/personalxproyecto?id=${idPersonal}&fichaLista=${fichaLista}`, {
-        method: "GET", // or 'PUT'
+function getTabla2() {
+    $.ajax({
+        url: "https://practica-supervisada.herokuapp.com/api/Personal",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
             "Content-Type": "application/json",
         },
-    })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data)
+        success: function (data) {
             var o = data; //A la variable le asigno el json decodificado
             console.log(o);
             tabla.destroy();
@@ -126,11 +107,11 @@ function getDatos(idPersonal, fichaLista) {
                 rowId: "id",
                 searching: true,
                 language: {
-                    "lengthMenu": "Mostrar _MENU_ proyectos por página",
-                    "zeroRecords": "Ningún proyecto encontrado",
-                    "infoEmpty": "Ningún proyecto disponible",
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "Ningún registro encontrado",
+                    "infoEmpty": "Ningún registro disponible",
                     "search": "Búscar",
-                    "sInfo": "Mostrando proyectos del _START_ al _END_ de un total de _TOTAL_ proyectos",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
                     "oPaginate": {
                         "sFirst": "Primero",
                         "sLast": "Último",
@@ -138,24 +119,188 @@ function getDatos(idPersonal, fichaLista) {
                         "sPrevious": "Anterior"
                     },
                 },
-                order: [0, "desc"],
+                order: [0, "asc"],
                 columns: [
-                    { data: "titulo" },
-                    { data: "anioInicio" },
-                    { data: "anioFin" },
-                    { data: "fichaLista" },
-                    { data: "coordinador" },
+                    { data: "nombre" },
+                    {
+                        data: null,
+                        defaultContent:
+                            "<button id='btnEliminar' class='btn btn-danger'><box-icon name='trash'></box-icon></button>" +
+                            "<button id='btnEditar' data-bs-toggle='modal' data-bs-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button>",
+                    },
                 ],
             });
-        })
-    var cantidadDatos = tabla.data().count();
-    console.log(cantidadDatos)
+        },
+        error: function (error) {
+            alert("No hay Areas");
+        },
+    });
 }
 
-let filtrar = document.getElementById("btnFiltrar");
-filtrar.addEventListener("click", e => {
+var id = 0;
+$("#example").on("click", "tr", function () {
+    // Get the rows id value
+    id = tabla.row(this).id();
+    // Filter for only numbers
+    id = id.replace(/\D/g, "");
+    // Transform to numeric value
+    id = parseInt(id, 10);
+    console.log(id);
+});
+
+//EDITAR
+$(document).on("click", "#btnEditar", function (e) {
     e.preventDefault();
-    var idPersonal = document.getElementById("txtPersonal").value;
-    var fichaLista = document.getElementById("fichaLista").value;
-    getDatos(idPersonal, fichaLista);
-})
+
+    fetch(`https://practica-supervisada.herokuapp.com/api/Personal/${id}`, {
+        method: "get",
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+            "Content-Type": "application/json",
+        },
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            document.getElementById("txtPersonalEditar").value = data[0].nombre;
+        });
+
+    let editar = document.getElementById("btnGuardar");
+    editar.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        var datos = {
+            id: id,
+            nombre: document.getElementById("txtPersonalEditar").value,
+        };
+        console.log(datos);
+
+        fetch(`https://practica-supervisada.herokuapp.com/api/Personal`, {
+            method: "PUT", // or 'PUT'
+            body: JSON.stringify(datos), // data can be `string` or {object}!
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res)
+            .then((data) => {
+                if (data.status == 200) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Modificación exitosa",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                    getTabla2();
+                    $('#exampleModalEditar').modal('toggle');
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Complete los campos",
+                    });
+                    return false;
+                }
+            });
+    });
+});
+
+
+//ELIMINAR
+$(document).on("click", "#btnEliminar", function (e) {
+    e.preventDefault();
+
+    Swal.fire({
+        title: "¿Desea eliminar el personal?",
+        showDenyButton: true,
+        confirmButtonText: "Eliminar",
+        denyButtonText: `Cancelar`,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `https://practica-supervisada.herokuapp.com/api/Personal/${id}`,
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+                type: "DELETE",
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                    if (result) {
+                        getTabla2();
+                    } else {
+                        //Swal.fire(result.error);
+                        console.log(result.error);
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                },
+            });
+            Swal.fire({
+                icon: "success",
+                title: "Personal Eliminado",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+            // getTabla();
+        } else if (result.isDenied) {
+            Swal.fire({
+                icon: "info",
+                title: "Personal no eliminado",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+            getTabla2();
+        }
+    });
+});
+
+//AGREGAR
+let area = document.getElementById("btnAgregar");
+area.addEventListener("click", (e) => {
+    e.preventDefault();
+    var nuevaArea = document.getElementById("txtNombre").value;
+    if (nuevaArea === "") {
+        Swal.fire({
+            icon: "error",
+            title: "Ingrese un nombre",
+            showConfirmButton: false,
+            timer: 1500,
+        });
+        return false;
+    } else {
+
+        const datos = {
+            nombre: nuevaArea,
+            activo: true
+        };
+
+        var url = "https://practica-supervisada.herokuapp.com/api/Personal";
+        fetch(url, {
+            method: "POST", // or 'PUT'
+            body: JSON.stringify(datos), // data can be `string` or {object}!
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res)
+            //.catch((error) => console.error("Error:", error))
+            .then((data) => {
+                if (data.status == 200) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Inserción Exitosa",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                    getTabla2();
+                    document.getElementById("formulario").reset();
+                }
+            });
+    }
+});

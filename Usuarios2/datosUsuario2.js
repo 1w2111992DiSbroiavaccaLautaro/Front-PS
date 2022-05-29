@@ -275,9 +275,9 @@ $(document).on("click", "#btnEditar", function (e) {
         },
       }
     )
-      .then((res) => res)
+      .then((res) => res.json())
       .then((data) => {
-        if (data.status == 200) {
+        if (data.ok) {
           Swal.fire({
             position: "center",
             icon: "success",
@@ -285,6 +285,7 @@ $(document).on("click", "#btnEditar", function (e) {
             showConfirmButton: false,
             timer: 1500,
           });
+          localStorage.setItem("token", 0);
           getTabla2();
           setInterval(() => {
             location = "/index.html";
@@ -292,7 +293,10 @@ $(document).on("click", "#btnEditar", function (e) {
         } else {
           Swal.fire({
             icon: "error",
-            title: "Complete los campos",
+            title: data.error,
+            text: "Usuario con credenciales ya registradas",
+            showConfirmButton: false,
+            timer: 2000,
           });
           return false;
         }

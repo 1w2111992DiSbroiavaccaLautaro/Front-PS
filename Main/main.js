@@ -412,6 +412,7 @@ eliminarFiltros.addEventListener("click", (e) => {
   document.getElementById("txtHasta").value = "";
   document.getElementById("txtPaisRegion").value = "";
   document.getElementById("txtAreas").value = "";
+
   getTabla2();
 })
 

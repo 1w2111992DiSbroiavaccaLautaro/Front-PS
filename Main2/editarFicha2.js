@@ -11,7 +11,7 @@ $(document).ready(function () {
             window.location = "../index.html";
         }, 2000);
     } else {
-        fetch("https://proyecto-fundacion.herokuapp.com/api/Areas", {
+        fetch("https://practica-supervisada.herokuapp.com/api/Area", {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
                 "Content-Type": "application/json",
@@ -33,7 +33,7 @@ $(document).ready(function () {
                 cargarComboAreas(data);
             });
 
-        fetch("https://proyecto-fundacion.herokuapp.com/api/Personal", {
+        fetch("https://practica-supervisada.herokuapp.com/api/Personal", {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
                 "Content-Type": "application/json",
@@ -774,6 +774,10 @@ console.log(enEjecucion);
 var depto = document.getElementById("txtDepartamento");
 var deptoSeleccionado = depto.options[depto.selectedIndex].text;
 
+var fichaLista;
+var certificadoPor;
+var certificadoConformidad;
+
 fetch("https://practica-supervisada.herokuapp.com/api/proyecto/" + fichaId, {
     headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -800,7 +804,9 @@ fetch("https://practica-supervisada.herokuapp.com/api/proyecto/" + fichaId, {
         document.getElementById("txtEjecucion").checked = data[0].enCurso;
         document.getElementById("txtConsultores").value = data[0].consultoresAsoc;
         document.getElementById("txtDescProyexto").value = data[0].descripcion;
-        //document.getElementById("idFichaLista").checked = data[0].fichaLista;
+        fichaLista = data[0].fichaLista;
+        certificadoPor = data[0].certificadopor;
+        certificadoConformidad = data[0].certconformidad
         // if (document.getElementById("idFichaLista").checked) {
         //     document.getElementById("comboFicha").disabled = false;
         //     document.getElementById("comboFicha").value = data[0].certificadopor;
@@ -950,12 +956,12 @@ boton.addEventListener("click", (e) => {
         consultoresAsoc: document.getElementById("txtConsultores").value,
         descripcion: document.getElementById("txtDescProyexto").value,
         resultados: null,
-        fichaLista: false,
+        fichaLista: fichaLista,
         enCurso: document.getElementById("txtEjecucion").checked,
         departamento: depto,
         //moneda: monedaSeleccionada,
-        certconformidad: false,
-        certificadopor: "-1",
+        certconformidad: certificadoConformidad,
+        certificadopor: certificadoPor,
         activo: true,
         listaAreas: objAreas,
         listaPersonal: objPersonal,
@@ -974,22 +980,14 @@ boton.addEventListener("click", (e) => {
         });
         return false;
     } else {
-        Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Modificación exitosa",
-            showConfirmButton: false,
-            timer: 1500,
-        });
-        //document.getElementById("formulario").reset();
-        $("#myTable > tbody").empty();
-        $("#myTableArea > tbody").empty();
-        objAreas = [];
-        objPersonal = [];
-        setInterval(() => {
-            location = 'main2.html';
+        // Swal.fire({
+        //     position: "center",
+        //     icon: "success",
+        //     title: "Modificación exitosa",
+        //     showConfirmButton: false,
+        //     timer: 1500,
+        // });
 
-        }, 2000);
         fetch(url, {
             method: "PUT", // or 'PUT'
             body: JSON.stringify(data), // data can be `string` or {object}!
@@ -999,9 +997,37 @@ boton.addEventListener("click", (e) => {
             },
         })
             .then((res) => res)
-            //.catch((error) => console.error("Error:", error))
             .then((data) => {
                 console.log(data);
-            });
+                if (data.status == 400) {
+                    Swal.fire({
+                        position: "error",
+                        icon: "error",
+                        title: "No se pudo modificar",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                    return false;
+                }
+                else {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Modificación exitosa",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                    setInterval(() => {
+                        location = 'main2.html';
+                    }, 2000);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        setInterval(() => {
+            location = 'main2.html';
+        }, 2000);
+
     }
 });

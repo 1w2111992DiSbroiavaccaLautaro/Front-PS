@@ -10,7 +10,7 @@ $(document).ready(function () {
       window.location = "../index.html";
     }, 2000);
   } else {
-    fetch("https://proyecto-fundacion.herokuapp.com/api/Areas", {
+    fetch("https://practica-supervisada.herokuapp.com/api/Area", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -32,7 +32,7 @@ $(document).ready(function () {
         cargarComboAreas(data);
       });
 
-    fetch("https://proyecto-fundacion.herokuapp.com/api/Personal", {
+    fetch("https://practica-supervisada.herokuapp.com/api/Personal", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -875,14 +875,7 @@ boton.addEventListener("click", (e) => {
       showConfirmButton: false,
       timer: 1500,
     });
-    document.getElementById("formulario").reset();
-    $("#myTable > tbody").empty();
-    $("#myTableArea > tbody").empty();
-    objAreas = [];
-    objPersonal = [];
-    setInterval(() => {
-      location.reload();
-    }, 2000);
+
     fetch(url, {
       method: "POST", // or 'PUT'
       body: JSON.stringify(data), // data can be `string` or {object}!
@@ -891,10 +884,38 @@ boton.addEventListener("click", (e) => {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => res)
+      .then((res) => res.json())
       //.catch((error) => console.error("Error:", error))
       .then((data) => {
         console.log(data);
+        if (data.status == 400) {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "No se pudo insertar",
+            text: "Resvise todos los campos cargados",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          return false;
+        }
+        else {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Inserción exitosa",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          document.getElementById("formulario").reset();
+          setInterval(() => {
+            location.reload();
+          }, 2000);
+        }
       });
+    document.getElementById("formulario").reset();
+    setInterval(() => {
+      location.reload();
+    }, 2000);
   }
 });
