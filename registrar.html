@@ -126,13 +126,13 @@
                             if (result.ok) {
                                 Swal.fire({
                                     icon: 'success',
-                                    title: 'Registro Exitoso',
+                                    title: 'Registro exitoso',
                                     showConfirmButton: false,
-                                    text: "Ahora será redirigido al Login"
+                                    text: "Revise su casilla de correo para confirmar el mail"
                                 });
                                 setInterval(() => {
                                     window.location = "../index.html"
-                                }, 2000)
+                                }, 3000)
                             } else {
                                 Swal.fire({
                                     icon: "error",

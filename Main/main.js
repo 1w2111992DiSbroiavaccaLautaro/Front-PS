@@ -273,7 +273,7 @@ $(document).on("click", "#btnEliminar", function (e) {
 });
 
 let comboDeptos = document.getElementById("txtDepartamento");
-comboDeptos.addEventListener("change", e => {
+comboDeptos.addEventListener("click", e => {
   e.preventDefault();
   departamento = document.getElementById("txtDepartamento").value;
   limpiar(selectAreas);
