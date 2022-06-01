@@ -234,6 +234,7 @@ $(document).on("click", "#btnEliminar", function (e) {
     if (result.isConfirmed) {
       $.ajax({
         url: `https://practica-supervisada.herokuapp.com/api/proyecto/${id}`,
+        //url: `https://localhost:44343/api/Proyecto/${id}`,
         type: "DELETE",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),

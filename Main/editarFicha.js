@@ -1079,14 +1079,14 @@ boton.addEventListener("click", (e) => {
             .catch((error) => alert("Error:", error))
             .then((data) => {
                 console.log(data);
-                if (data.status == 400) {
+                if (!data) {
                     Swal.fire({
                         position: "center",
                         icon: "error",
                         title: "No se pudo modificar",
                         text: "Resvise todos los campos cargados",
                         showConfirmButton: false,
-                        timer: 1500,
+                        timer: 2000,
                     });
                     return false;
                 }
@@ -1096,15 +1096,15 @@ boton.addEventListener("click", (e) => {
                         icon: "success",
                         title: "Modificación exitosa",
                         showConfirmButton: false,
-                        timer: 1500,
+                        timer: 2000,
                     });
                     setInterval(() => {
                         location = 'main.html';
-                    }, 2000);
+                    }, 3000);
                 }
             });
-        setInterval(() => {
-            location = 'main.html';
-        }, 2000);
+        // setInterval(() => {
+        //     location = 'main.html';
+        // }, 2000);
     }
 });

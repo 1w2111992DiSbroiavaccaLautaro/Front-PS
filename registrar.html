@@ -43,9 +43,9 @@
 
     <main class="form-signin">
         <form method="">
-            <img class="mb-4"
+            <!-- <img class="mb-4"
                 src="https://fundacionbariloche.org.ar/wp-content/uploads/2020/02/logo_fb_horizontal-3.png" alt=""
-                width="150" height="57">
+                width="150" height="57"> -->
             <h1 class="h3 mb-3 fw-normal">Registro</h1>
             <div class="form-floating">
                 <input type="text" class="form-control" id="nombre" required placeholder="Nombre">
@@ -109,11 +109,15 @@
             var emailRegex = /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
             if (emailRegex.test(email)) {
                 if (passwordRegex.test(pass)) {
+
                     const datos = {
                         nombre: nombre,
                         email: email,
                         password: pass,
                     }
+
+                    Swal.fire('Porfavor, espere')
+                    Swal.showLoading()
 
                     $.ajax({
                         url: 'https://practica-supervisada.herokuapp.com/api/Usuarios/',
@@ -128,7 +132,7 @@
                                     icon: 'success',
                                     title: 'Registro exitoso',
                                     showConfirmButton: false,
-                                    text: "Revise su casilla de correo para confirmar el mail"
+                                    text: "Un email fue enviado a uno de los validadores para que acepte su solictud"
                                 });
                                 setInterval(() => {
                                     window.location = "../index.html"
@@ -136,7 +140,7 @@
                             } else {
                                 Swal.fire({
                                     icon: "error",
-                                    title: result.error
+                                    title: "Error al registrar el usuario",
                                 });
                             }
                         },
