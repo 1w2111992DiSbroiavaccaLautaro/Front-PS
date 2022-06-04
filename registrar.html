@@ -119,35 +119,53 @@
                     Swal.fire('Porfavor, espere')
                     Swal.showLoading()
 
-                    $.ajax({
-                        url: 'https://practica-supervisada.herokuapp.com/api/Usuarios/',
-                        type: "POST",
-                        dataType: "json",
-                        contentType: 'application/json',
-                        data: JSON.stringify(datos),
-                        success: function (result) {
-                            console.log(result);
-                            if (result.ok) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Registro exitoso',
-                                    showConfirmButton: false,
-                                    text: "Un email fue enviado a uno de los validadores para que acepte su solictud"
-                                });
-                                setInterval(() => {
-                                    window.location = "../index.html"
-                                }, 3000)
-                            } else {
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Error al registrar el usuario",
-                                });
-                            }
-                        },
-                        error: function (error) {
-                            console.log(error);
+                    Swal.fire({
+                        title: "Términos y Condiciones del Sistema",
+                        showDenyButton: true,
+                        confirmButtonText: "Aceptar",
+                        denyButtonText: `Rechazar`,
+                        html: `<p style='text-align: justify;'>Al hacer click en el botón Aceptar, usted como usuario acepta los Términos y Condiciones de uso de sistema de gestor de fichas de proyectos de la Fundación Patagonia. Dichos términos se componen por: </p>"
+                            "<ul style='text-align: justify;'>
+                                <li>Holaaa</li>
+                                <li>Holaaa</li>
+                                <li>chau</li>
+                                </ul>`,
+
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: 'https://practica-supervisada.herokuapp.com/api/Usuarios/',
+                                type: "POST",
+                                dataType: "json",
+                                contentType: 'application/json',
+                                data: JSON.stringify(datos),
+                                success: function (result) {
+                                    console.log(result);
+                                    if (result.ok) {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Registro exitoso',
+                                            showConfirmButton: false,
+                                            text: "Un email fue enviado a uno de los validadores para que acepte su solictud"
+                                        });
+                                        setInterval(() => {
+                                            window.location = "../index.html"
+                                        }, 3000)
+                                    } else {
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "Error al registrar el usuario",
+                                        });
+                                    }
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                }
+                            })
                         }
-                    })
+                    });
+
+
                 }
                 else {
                     Swal.fire({

@@ -62,11 +62,6 @@
         </div>
     </div>
 
-    <ul style="color: red;">
-        <li>Holaa</li>
-    </ul>
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
@@ -131,27 +126,7 @@
         let imprimir = document.getElementById("btnImprimir");
         imprimir.addEventListener("click", e => {
             e.preventDefault();
-
-            fetch('https://practica-supervisada.herokuapp.com/api/proyecto/' + id, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("token"),
-                    "Content-Type": "application/json",
-                },
-            })
-                .then(response => response.json())
-                .then((data) => {
-                    if (data[0].fichaLista) {
-                        Export2Doc('exportContent', 'listado_fichas_proyectos');
-                    }
-                    else {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Ficha no lista",
-                            text: "Solo se puede imprimir una ficha de proyecto que este lista"
-                        })
-                        return false;
-                    }
-                })
+            Export2Doc('exportContent', 'listado_fichas_proyectos');
         })
 
         var area = localStorage.getItem("area");

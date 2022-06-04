@@ -48,6 +48,7 @@ $(document).ready(function () {
       });
   }
 });
+
 function cargarComboAreas(datos) {
   var html = "<option value=''>Áreas</option>";
   $("#txtAreas").append(html);
@@ -66,12 +67,10 @@ function hideSpinner() {
 }
 
 
-
 function cerrarSesion() {
   localStorage.setItem("token", 0);
   localStorage.setItem("email", "");
 }
-
 
 function getTabla() {
   $.ajax({

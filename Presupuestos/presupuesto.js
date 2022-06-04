@@ -58,6 +58,28 @@ function getTabla() {
             tabla = $("#example").DataTable({
                 data: o,
                 rowId: "id",
+                columnDefs: [
+                    {
+                        "targets": 2, // your case first column
+                        "className": "text-right",
+                    },
+                    {
+                        "targets": 3,
+                        "className": "text-right",
+                    },
+                    {
+                        "targets": 4,
+                        "className": "text-right",
+                    },
+                    {
+                        "targets": 5,
+                        "className": "text-right",
+                    },
+                    {
+                        "targets": 6,
+                        "className": "text-right",
+                    },
+                ],
                 searching: true,
                 language: {
                     "lengthMenu": "Mostrar _MENU_ registros por página",
