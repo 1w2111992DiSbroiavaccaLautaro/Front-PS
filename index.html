@@ -105,7 +105,10 @@
                     password: pass
                 }
 
-                Swal.fire('Porfavor, espere')
+                Swal.fire({
+                    icon: "info",
+                    title: 'Porfavor, espere'
+                })
                 Swal.showLoading()
 
                 $.ajax({

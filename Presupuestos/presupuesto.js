@@ -60,7 +60,7 @@ function getTabla() {
                 rowId: "id",
                 columnDefs: [
                     {
-                        "targets": 2, // your case first column
+                        "targets": 2,
                         "className": "text-right",
                     },
                     {
@@ -127,6 +127,28 @@ function getTabla2(desde, hasta, depto) {
                 data: o,
                 rowId: "id",
                 searching: true,
+                columnDefs: [
+                    {
+                        "targets": 2,
+                        "className": "text-right",
+                    },
+                    {
+                        "targets": 3,
+                        "className": "text-right",
+                    },
+                    {
+                        "targets": 4,
+                        "className": "text-right",
+                    },
+                    {
+                        "targets": 5,
+                        "className": "text-right",
+                    },
+                    {
+                        "targets": 6,
+                        "className": "text-right",
+                    },
+                ],
                 language: {
                     "lengthMenu": "Mostrar _MENU_ registros por página",
                     "zeroRecords": "Ningún registro encontrado",

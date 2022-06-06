@@ -71,6 +71,8 @@
         </form>
     </main>
 
+
+
     <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -105,6 +107,34 @@
                 return false;
             }
 
+            var parrafo = `<p style="text-align: justify;">
+                Al oprimir el botón Aceptar, usted como usuario acepta los Términos y Condiciones de uso de 
+                sistema de gestor de fichas de proyectos de la Fundación Patagonia. Dichos términos se componen por: 
+                <ul>
+                    <li style="text-align: justify;">Realizar un uso correcto de la aplicación, conociendo que la falta del mismo, 
+                        ya sea por divulgación de la información que se presenta en las fichas de los proyectos o por la alteración de la 
+                        misma, puede llevar a una eliminación de su usuario de forma permanente
+                    </li>
+                    <li style="text-align: justify;">
+                        El usuario creado (una vez validado el email por un validador de la aplicación) tendrá la contraseña encriptada 
+                        y sin posibilidad de ser visualizada por nadie más por fuera de su usuario
+                    </li>
+                    <li style="text-align: justify;">
+                        Los datos personales del usuario no serán compartidos con terceros
+                    </li>
+                    <li style="text-align: justify;">
+                        Como desarrollar, este se compromete a realizar arreglos que solucionen error que puedan aparecer durante el 
+                        uso de la aplicación, pero no el incremento de funcionalidad. Ello conllevaría a una modificación del contrato que se 
+                        especifico al inicio de la aplicación
+                    </li>
+                    <li style="text-align: justify;">
+                        Como desarrollador, este se compromete a realizar una pequeña demostración de la aplicación y dejar un apartado 
+                        con preguntas frecuentes sobre el uso de la misma
+                    </li>
+                </ul>
+                
+                </p>`
+
             var passwordRegex = /^(?=.*[az]).{8,20}$/
             var emailRegex = /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
             if (emailRegex.test(email)) {
@@ -120,16 +150,11 @@
                     Swal.showLoading()
 
                     Swal.fire({
-                        title: "Términos y Condiciones del Sistema",
+                        title: "Términos y Condiciones de la aplicación",
                         showDenyButton: true,
                         confirmButtonText: "Aceptar",
                         denyButtonText: `Rechazar`,
-                        html: `<p style='text-align: justify;'>Al hacer click en el botón Aceptar, usted como usuario acepta los Términos y Condiciones de uso de sistema de gestor de fichas de proyectos de la Fundación Patagonia. Dichos términos se componen por: </p>"
-                            "<ul style='text-align: justify;'>
-                                <li>Holaaa</li>
-                                <li>Holaaa</li>
-                                <li>chau</li>
-                                </ul>`,
+                        html: parrafo,
 
                     }).then((result) => {
                         if (result.isConfirmed) {

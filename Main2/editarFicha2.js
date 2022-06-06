@@ -996,10 +996,10 @@ boton.addEventListener("click", (e) => {
                 "Content-Type": "application/json",
             },
         })
-            .then((res) => res)
+            .then((res) => res.json())
             .then((data) => {
                 console.log(data);
-                if (data.status == 400) {
+                if (!data) {
                     Swal.fire({
                         position: "error",
                         icon: "error",
