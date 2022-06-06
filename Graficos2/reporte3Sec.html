@@ -144,6 +144,10 @@
                     var o = data; //A la variable le asigno el json decodificado
                     var monedaInt = parseFloat(moneda);
 
+                    var e = parseInt(o.energia / monedaInt);
+                    var m = parseInt(o.made / monedaInt);
+                    var a = parseInt(o.asc / monedaInt);
+
                     if (o.energia == 0 && o.made == 0 && o.asc == 0) {
                         Swal.fire({
                             icon: "info",
@@ -171,7 +175,7 @@
                                 'rgba(0, 255, 189, 0.8)',
                             ],
                             borderColor: 'rgb(255, 99, 132)',
-                            data: [(o.energia / monedaInt), (o.made / monedaInt), (o.asc / monedaInt)],
+                            data: [e, m, a],
                         }]
                     };
 

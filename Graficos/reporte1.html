@@ -141,6 +141,8 @@
                 success: function (data) {
                     var o = data; //A la variable le asigno el json decodificado
                     var monedaInt = parseFloat(moneda);
+                    var ganancia = parseInt(o.ganancias / monedaInt);
+                    var perdida = parseInt(o.perdidas / monedaInt);
 
                     if (o.ganancias == 0 && o.perdidas == 0) {
                         Swal.fire({
@@ -167,7 +169,7 @@
                                 'rgba(48, 33, 236, 0.8)',
                             ],
                             borderColor: 'rgb(255, 99, 132)',
-                            data: [(o.ganancias / monedaInt), (o.perdidas / monedaInt)],
+                            data: [(ganancia), (perdida)],
                         }]
                     };
 
@@ -252,6 +254,8 @@
                 success: function (data) {
 
                     var o = data; //A la variable le asigno el json decodificado
+                    var ganancia = parseInt(o.ganancias);
+                    var perdida = parseInt(o.perdidas);
 
                     const labels = [
                         'Ingresos',
@@ -267,7 +271,7 @@
                                 'rgba(48, 33, 236, 0.8)',
                             ],
                             borderColor: 'rgb(255, 99, 132)',
-                            data: [o.ganancias, o.perdidas],
+                            data: [ganancia, perdida],
                         }]
                     };
 
