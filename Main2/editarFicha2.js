@@ -762,6 +762,55 @@ function mostrarDatos2Presupuesto2() {
     });
 }
 
+// --------------------FICHA LISTA--------------------------
+// var comboFicha;
+// var comboFichaSeleccionada;
+// var fichaLista
+// function fichaSeleccionada() {
+//     fichaLista = document.getElementById("idFichaLista").checked;
+
+//     if (fichaLista) {
+//         validarFicha();
+//         document.getElementById("comboFicha").disabled = !fichaLista;
+//         comboFicha = document.getElementById("comboFicha").value;
+//         comboFicha2 = document.getElementById("comboFicha");
+
+//         comboFichaSeleccionada =
+//             comboFicha2.options[comboFicha2.selectedIndex].text;
+//         console.log(comboFichaSeleccionada);
+//         return false;
+//     } else {
+//         document.getElementById("comboFicha").disabled = !fichaLista;
+//         comboFicha2 = document.getElementById("comboFicha");
+//         comboFichaSeleccionada =
+//             comboFicha2.options[comboFicha2.selectedIndex].text;
+//         comboFichaSeleccionada = "";
+//         comboFicha = -1;
+//     }
+// }
+
+// function cambiarValor() {
+//     comboFicha = document.getElementById("comboFicha").value;
+//     comboFicha2 = document.getElementById("comboFicha");
+
+//     comboFichaSeleccionada = comboFicha2.options[comboFicha2.selectedIndex].text;
+//     console.log(comboFichaSeleccionada);
+// }
+
+// function validarFicha() {
+//     var tit = document.getElementById("txtTitulo").value;
+//     if (objAreas.length == 0 || objPresupuesto.length == 0 || objPersonal.length == 0 || tit == "") {
+//         Swal.fire({
+//             icon: "error",
+//             title: "Ficha no aceptada",
+//             text: "La ficha no puede ser aceptada. Debe tener un presupuesto, área, personal y un título asignada",
+//             timer: 3000
+//         });
+//         fichaLista = document.getElementById("idFichaLista").checked = false;
+//         //return false;
+//     }
+// }
+
 // -----------------------RECUPERACION DE DATOS---------------------------
 var indexPresupuesto = 0;
 let enEjecucion = document.getElementById("txtEjecucion").checked;
@@ -786,6 +835,8 @@ fetch("https://practica-supervisada.herokuapp.com/api/proyecto/" + fichaId, {
 })
     .then((response) => response.json())
     .then((data) => {
+        estadoFicha = data[0].fichaLista;
+        estadoPor = data[0].certificadopor;
         console.log(data);
         // document.getElementById("certConformidad").checked =
         //     data[0].certconformidad;
@@ -804,8 +855,8 @@ fetch("https://practica-supervisada.herokuapp.com/api/proyecto/" + fichaId, {
         document.getElementById("txtEjecucion").checked = data[0].enCurso;
         document.getElementById("txtConsultores").value = data[0].consultoresAsoc;
         document.getElementById("txtDescProyexto").value = data[0].descripcion;
-        fichaLista = data[0].fichaLista;
-        certificadoPor = data[0].certificadopor;
+        fichaLista = estadoFicha;
+        certificadoPor = estadoPor;
         certificadoConformidad = data[0].certconformidad
         // if (document.getElementById("idFichaLista").checked) {
         //     document.getElementById("comboFicha").disabled = false;
@@ -916,6 +967,20 @@ let boton = document.getElementById("enviar");
 boton.addEventListener("click", (e) => {
     e.preventDefault();
 
+    var tit = document.getElementById("txtTitulo").value;
+    if (objAreas.length == 0 || objPresupuesto.length == 0 || objPersonal.length == 0 || tit == "") {
+        Swal.fire({
+            icon: "error",
+            title: "Ficha no aceptada",
+            text: "La ficha no puede ser aceptada. Debe tener un presupuesto, área, personal y un título asignada",
+            timer: 3000
+        });
+        estadoFicha = false;
+        estadoPor = "-1";
+        //fichaLista = document.getElementById("idFichaLista").checked = false;
+
+    }
+
     // var moneda = document.getElementById("txtMoneda");
     // var monedaSeleccionada = moneda.options[moneda.selectedIndex].text;
     // console.log(moneda);
@@ -956,12 +1021,12 @@ boton.addEventListener("click", (e) => {
         consultoresAsoc: document.getElementById("txtConsultores").value,
         descripcion: document.getElementById("txtDescProyexto").value,
         resultados: null,
-        fichaLista: fichaLista,
+        fichaLista: estadoFicha,
         enCurso: document.getElementById("txtEjecucion").checked,
         departamento: depto,
         //moneda: monedaSeleccionada,
         certconformidad: certificadoConformidad,
-        certificadopor: certificadoPor,
+        certificadopor: estadoPor,
         activo: true,
         listaAreas: objAreas,
         listaPersonal: objPersonal,
@@ -1030,4 +1095,5 @@ boton.addEventListener("click", (e) => {
         }, 2000);
 
     }
+
 });

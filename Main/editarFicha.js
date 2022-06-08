@@ -814,6 +814,7 @@ function fichaSeleccionada() {
         comboFichaSeleccionada =
             comboFicha2.options[comboFicha2.selectedIndex].text;
         console.log(comboFichaSeleccionada);
+        return false;
     } else {
         document.getElementById("comboFicha").disabled = !fichaLista;
         comboFicha2 = document.getElementById("comboFicha");
@@ -838,10 +839,11 @@ function validarFicha() {
         Swal.fire({
             icon: "error",
             title: "Ficha no aceptada",
-            text: "La ficha no puede ser aceptada. Debe tener un presupuesto, área, personal y un título asignada"
+            text: "La ficha no puede ser aceptada. Debe tener un presupuesto, área, personal y un título asignada",
+            timer: 3000
         });
         fichaLista = document.getElementById("idFichaLista").checked = false;
-        return false;
+        //return false;
     }
 }
 
@@ -993,93 +995,87 @@ let boton = document.getElementById("enviar");
 boton.addEventListener("click", (e) => {
     e.preventDefault();
 
-    fichaSeleccionada();
+    var f = fichaSeleccionada();
+    if (f) {
+        console.log("Hola")
+    }
+    else {
 
-    // var moneda = document.getElementById("txtMoneda");
-    // var monedaSeleccionada = moneda.options[moneda.selectedIndex].text;
-    // console.log(moneda);
+        // var moneda = document.getElementById("txtMoneda");
+        // var monedaSeleccionada = moneda.options[moneda.selectedIndex].text;
+        // console.log(moneda);
 
-    var tit = document.getElementById("txtTitulo").value;
+        var tit = document.getElementById("txtTitulo").value;
 
-    var depto = document.getElementById("txtDepartamento").value;
-    //var deptoSeleccionado = depto.options[depto.selectedIndex].text;
+        var depto = document.getElementById("txtDepartamento").value;
+        //var deptoSeleccionado = depto.options[depto.selectedIndex].text;
 
-    var anioInicio = document.getElementById("txtAnioInicio").value;
-    var anioFin = document.getElementById("txtAnioFin").value
+        var anioInicio = document.getElementById("txtAnioInicio").value;
+        var anioFin = document.getElementById("txtAnioFin").value
 
-    if (anioInicio !== "" && anioFin !== "") {
-        if (!/^(1[9-9][6-9][0-9]|20[0-9][0-9]|2100)$/.test(anioInicio) || !/^(1[9-9][6-9][0-9]|20[0-9][0-9]|2100)$/.test(anioFin)) {
+        if (anioInicio !== "" && anioFin !== "") {
+            if (!/^(1[9-9][6-9][0-9]|20[0-9][0-9]|2100)$/.test(anioInicio) || !/^(1[9-9][6-9][0-9]|20[0-9][0-9]|2100)$/.test(anioFin)) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Ingrese un año valido",
+                    showConfirmButton: true,
+                });
+                return false;
+            }
+        }
+
+        var url = "https://practica-supervisada.herokuapp.com/api/proyecto/";
+        //var url = "https://localhost:44343/api/Proyecto";
+        var data = {
+            idProyecto: fichaId,
+            titulo: document.getElementById("txtTitulo").value,
+            paisRegion: document.getElementById("txtPais").value,
+            contratante: document.getElementById("txtContratante").value,
+            dirección: document.getElementById("txtDireccion").value,
+            //montoContrato: document.getElementById("txtMonto").value,
+            nroContrato: document.getElementById("txtNumero").value,
+            mesInicio: parseInt(document.getElementById("mesDesde").value),
+            anioInicio: parseInt(document.getElementById("txtAnioInicio").value),
+            mesFinalizacion: parseInt(document.getElementById("mesHasta").value),
+            anioFinalizacion: parseInt(document.getElementById("txtAnioFin").value),
+            consultoresAsoc: document.getElementById("txtConsultores").value,
+            descripcion: document.getElementById("txtDescProyexto").value,
+            resultados: null,
+            fichaLista: document.getElementById("idFichaLista").checked,
+            enCurso: document.getElementById("txtEjecucion").checked,
+            departamento: depto,
+            //moneda: monedaSeleccionada,
+            certconformidad: document.getElementById("certConformidad").checked,
+            certificadopor: comboFicha,
+            activo: true,
+            listaAreas: objAreas,
+            listaPersonal: objPersonal,
+            listaPresupuestos: objPresupuesto,
+            listaPublicaciones: objPublicacion,
+            link: document.getElementById("txtLink").value,
+            convenio: document.getElementById("txtConvenio").checked,
+        };
+
+        console.log(data);
+
+        if (tit === "") {
             Swal.fire({
                 icon: "error",
-                title: "Ingrese un año valido",
-                showConfirmButton: true,
+                title: "Ingrese un título",
             });
             return false;
-        }
-    }
+        } else {
 
-    var url = "https://practica-supervisada.herokuapp.com/api/proyecto/";
-    //var url = "https://localhost:44313/api/Proyecto";
-    var data = {
-        idProyecto: fichaId,
-        titulo: document.getElementById("txtTitulo").value,
-        paisRegion: document.getElementById("txtPais").value,
-        contratante: document.getElementById("txtContratante").value,
-        dirección: document.getElementById("txtDireccion").value,
-        //montoContrato: document.getElementById("txtMonto").value,
-        nroContrato: document.getElementById("txtNumero").value,
-        mesInicio: parseInt(document.getElementById("mesDesde").value),
-        anioInicio: parseInt(document.getElementById("txtAnioInicio").value),
-        mesFinalizacion: parseInt(document.getElementById("mesHasta").value),
-        anioFinalizacion: parseInt(document.getElementById("txtAnioFin").value),
-        consultoresAsoc: document.getElementById("txtConsultores").value,
-        descripcion: document.getElementById("txtDescProyexto").value,
-        resultados: null,
-        fichaLista: document.getElementById("idFichaLista").checked,
-        enCurso: document.getElementById("txtEjecucion").checked,
-        departamento: depto,
-        //moneda: monedaSeleccionada,
-        certconformidad: document.getElementById("certConformidad").checked,
-        certificadopor: comboFicha,
-        activo: true,
-        listaAreas: objAreas,
-        listaPersonal: objPersonal,
-        listaPresupuestos: objPresupuesto,
-        listaPublicaciones: objPublicacion,
-        link: document.getElementById("txtLink").value,
-        convenio: document.getElementById("txtConvenio").checked,
-    };
-
-    console.log(data);
-
-    if (tit === "") {
-        Swal.fire({
-            icon: "error",
-            title: "Ingrese un título",
-        });
-        return false;
-    } else {
-        // Swal.fire({
-        //     position: "center",
-        //     icon: "success",
-        //     title: "Modificación exitosa",
-        //     showConfirmButton: false,
-        //     timer: 1500,
-        // });
-
-        fetch(url, {
-            method: "PUT", // or 'PUT'
-            body: JSON.stringify(data), // data can be `string` or {object}!
-            headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
-                "Content-Type": "application/json",
-            },
-        })
-            .then((res) => res.json())
-            .catch((error) => alert("Error:", error))
-            .then((data) => {
-                console.log(data);
-                if (!data) {
+            fetch(url, {
+                method: "PUT", // or 'PUT'
+                body: JSON.stringify(data), // data can be `string` or {object}!
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            })
+                .then((res) => res.json())
+                .catch((error) => {
                     Swal.fire({
                         position: "center",
                         icon: "error",
@@ -1089,22 +1085,38 @@ boton.addEventListener("click", (e) => {
                         timer: 2000,
                     });
                     return false;
-                }
-                else {
-                    Swal.fire({
-                        position: "center",
-                        icon: "success",
-                        title: "Modificación exitosa",
-                        showConfirmButton: false,
-                        timer: 2000,
-                    });
-                    setInterval(() => {
-                        location = 'main.html';
-                    }, 3000);
-                }
-            });
-        // setInterval(() => {
-        //     location = 'main.html';
-        // }, 2000);
+                })
+                .then((data) => {
+                    console.log(data);
+                    if (!data) {
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: "No se pudo modificar",
+                            text: "Resvise todos los campos cargados",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                        return false;
+                    }
+                    else {
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Modificación exitosa",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                        setInterval(() => {
+                            location = 'main.html';
+                        }, 3000);
+                    }
+                });
+
+
+            // setInterval(() => {
+            //     location = 'main.html';
+            // }, 2000);
+        }
     }
 });
