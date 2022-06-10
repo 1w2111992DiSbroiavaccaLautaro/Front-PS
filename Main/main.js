@@ -310,15 +310,17 @@ function getTablaFiltrada() {
   var hasta = document.getElementById("txtHasta").value;
   var paisRegion = document.getElementById("txtPaisRegion").value;
   var area = document.getElementById("txtAreas").value;
+  var fichaLista = document.getElementById("txtFichaLista").value;
 
   localStorage.setItem("desde", desde);
   localStorage.setItem("hasta", hasta);
   localStorage.setItem("depto", departamento);
   localStorage.setItem("paisRegion", paisRegion);
   localStorage.setItem("area", area);
+  localStorage.setItem("fichaLista", fichaLista);
 
   if (desde == "" && hasta == "") {
-    tablaFiltrada(departamento, desde, hasta, paisRegion, area);
+    tablaFiltrada(departamento, desde, hasta, paisRegion, area, fichaLista);
   }
   else {
     if (!/^(1[9-9][6-9][0-9]|20[0-9][0-9]|2100)$/.test(desde) || !/^(1[9-9][6-9][0-9]|20[0-9][0-9]|2100)$/.test(hasta)) {
@@ -330,7 +332,7 @@ function getTablaFiltrada() {
       return false;
     }
     else {
-      tablaFiltrada(departamento, desde, hasta, paisRegion, area);
+      tablaFiltrada(departamento, desde, hasta, paisRegion, area, fichaLista);
     }
   }
 
@@ -342,11 +344,12 @@ var desde;
 var hasta;
 var paisRegion;
 var area;
+var fichaLista;
 
-function tablaFiltrada(departamento, desde, hasta, paisRegion, area) {
+function tablaFiltrada(departamento, desde, hasta, paisRegion, area, fichaLista) {
   $.ajax({
     //url: `https://practica-supervisada.herokuapp.com/api/proyecto/tabla?Pais=${paisRegion}&AnioInicio=${desde}&AnioFin=${hasta}&Area=${area}&Departamento=${departamento}`,
-    url: `https://practica-supervisada.herokuapp.com/api/proyecto/lista?Pais=${paisRegion}&AnioInicio=${desde}&AnioFin=${hasta}&Area=${area}&Departamento=${departamento}`,
+    url: `https://practica-supervisada.herokuapp.com/api/proyecto/lista?Pais=${paisRegion}&AnioInicio=${desde}&AnioFin=${hasta}&Area=${area}&Departamento=${departamento}&FichaLista=${fichaLista}`,
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
       "Content-Type": "application/json",
@@ -412,6 +415,7 @@ eliminarFiltros.addEventListener("click", (e) => {
   document.getElementById("txtHasta").value = "";
   document.getElementById("txtPaisRegion").value = "";
   document.getElementById("txtAreas").value = "";
+  document.getElementById("txtFichaLista").value = "";
 
   getTabla2();
 })

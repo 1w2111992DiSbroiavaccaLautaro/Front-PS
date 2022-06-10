@@ -134,8 +134,9 @@
         var hasta = localStorage.getItem("hasta");
         var depto = localStorage.getItem("depto");
         var pais = localStorage.getItem("paisRegion");
+        var fichaLista = localStorage.getItem("fichaLista");
 
-        fetch(`https://practica-supervisada.herokuapp.com/api/proyecto/lista?Pais=${pais}&AnioInicio=${desde}&AnioFin=${hasta}&Area=${area}&Departamento=${depto}`, {
+        fetch(`https://practica-supervisada.herokuapp.com/api/proyecto/lista?Pais=${pais}&AnioInicio=${desde}&AnioFin=${hasta}&Area=${area}&Departamento=${depto}&FichaLista=${fichaLista}`, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
                 "Content-Type": "application/json",
