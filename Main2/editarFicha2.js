@@ -841,7 +841,7 @@ fetch("https://practica-supervisada.herokuapp.com/api/proyecto/" + fichaId, {
         // document.getElementById("certConformidad").checked =
         //     data[0].certconformidad;
         document.getElementById("txtTitulo").value = data[0].titulo;
-        document.getElementById("txtDepartamento").text = data[0].departamento;
+        document.getElementById("txtDepartamento").value = data[0].departamento;
         document.getElementById("txtPais").value = data[0].paisRegion;
         document.getElementById("txtContratante").value = data[0].contratante;
         document.getElementById("txtDireccion").value = data[0].dirección;
@@ -1045,13 +1045,11 @@ boton.addEventListener("click", (e) => {
         });
         return false;
     } else {
-        // Swal.fire({
-        //     position: "center",
-        //     icon: "success",
-        //     title: "Modificación exitosa",
-        //     showConfirmButton: false,
-        //     timer: 1500,
-        // });
+        Swal.fire({
+            icon: "info",
+            title: 'Porfavor, espere'
+        })
+        Swal.showLoading()
 
         fetch(url, {
             method: "PUT", // or 'PUT'

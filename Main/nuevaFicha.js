@@ -870,6 +870,13 @@ boton.addEventListener("click", (e) => {
     });
     return false;
   } else {
+
+    Swal.fire({
+      icon: "info",
+      title: 'Porfavor, espere'
+    })
+    Swal.showLoading()
+
     Swal.fire({
       position: "center",
       icon: "success",

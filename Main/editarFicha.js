@@ -1066,6 +1066,12 @@ boton.addEventListener("click", (e) => {
             return false;
         } else {
 
+            Swal.fire({
+                icon: "info",
+                title: 'Porfavor, espere'
+            })
+            Swal.showLoading()
+
             fetch(url, {
                 method: "PUT", // or 'PUT'
                 body: JSON.stringify(data), // data can be `string` or {object}!
