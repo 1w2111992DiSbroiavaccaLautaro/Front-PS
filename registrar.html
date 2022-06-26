@@ -108,12 +108,17 @@
             }
 
             var parrafo = `<p style="text-align: justify;">
-                Al oprimir el botón Aceptar, usted como usuario acepta los Términos y Condiciones de uso de 
+                Al oprimir el botón Aceptar, usted como usuario acepta los Términos y Condiciones de uso del 
                 sistema de gestor de fichas de proyectos de la Fundación Patagonia. Dichos términos se componen por: 
                 <ul>
-                    <li style="text-align: justify;">Realizar un uso correcto de la aplicación, conociendo que la falta del mismo, 
+                    <li style="text-align: justify;">
+                        Realizar un uso correcto de la aplicación, conociendo que la falta del mismo, 
                         ya sea por divulgación de la información que se presenta en las fichas de los proyectos o por la alteración de la 
                         misma, puede llevar a una eliminación de su usuario de forma permanente
+                    </li>
+                    <li style="text-align: justify;">
+                        Propiedad intelectual: El software en Argentina está protegido por la ley 11.723, que regula la propiedad intelectual y
+                        los derechos de autor de todos aquellos creadores de obras artísticas, literarias y científicas.
                     </li>
                     <li style="text-align: justify;">
                         El usuario creado (una vez validado el email por un validador de la aplicación) tendrá la contraseña encriptada 
@@ -123,8 +128,8 @@
                         Los datos personales del usuario no serán compartidos con terceros
                     </li>
                     <li style="text-align: justify;">
-                        Como desarrollar, este se compromete a realizar arreglos que solucionen error que puedan aparecer durante el 
-                        uso de la aplicación, pero no el incremento de funcionalidad. Ello conllevaría a una modificación del contrato que se 
+                        Como desarrollar, este se compromete a realizar arreglos que solucionen errores que puedan aparecer durante el 
+                        uso de la aplicación, pero no el incremento de funcionalidad de la misma. Ello conllevaría a una modificación del contrato que se 
                         especifico al inicio de la aplicación
                     </li>
                     <li style="text-align: justify;">
@@ -132,8 +137,7 @@
                         con preguntas frecuentes sobre el uso de la misma
                     </li>
                 </ul>
-                </p>`
-
+            </p>`
             var passwordRegex = /^(?=.*[az]).{8,20}$/
             var emailRegex = /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
             if (emailRegex.test(email)) {
