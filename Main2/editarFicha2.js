@@ -1078,7 +1078,7 @@ boton.addEventListener("click", (e) => {
                         icon: "success",
                         title: "Modificación exitosa",
                         showConfirmButton: false,
-                        timer: 1500,
+                        timer: 2000,
                     });
                     setInterval(() => {
                         location = 'main2.html';

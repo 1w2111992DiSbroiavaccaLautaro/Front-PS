@@ -871,6 +871,15 @@ boton.addEventListener("click", (e) => {
     return false;
   } else {
 
+    if (fichaLista == true && comboFicha == "-1") {
+      Swal.fire({
+        icon: "error",
+        title: "Seleccione un validador",
+        text: "Si la ficha está lista, debe seleccionar un validador"
+      });
+      return false;
+    }
+
     Swal.fire({
       icon: "info",
       title: 'Porfavor, espere'
