@@ -175,6 +175,14 @@ $(document).on("click", "#btnEditar", function (e) {
     };
     console.log(datos);
 
+    if (document.getElementById("txtAreaEditar").value == "") {
+      Swal.fire({
+        icon: "error",
+        title: "Complete el campo",
+      });
+      return false;
+    }
+
     fetch(`https://practica-supervisada.herokuapp.com/api/Area`, {
       method: "PUT", // or 'PUT'
       body: JSON.stringify(datos), // data can be `string` or {object}!
