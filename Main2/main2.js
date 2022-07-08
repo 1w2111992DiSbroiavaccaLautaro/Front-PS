@@ -330,7 +330,7 @@ function getTablaFiltrada() {
 
 function tablaFiltrada(departamento, desde, hasta, paisRegion, area) {
   $.ajax({
-    url: `https://practica-supervisada.herokuapp.com/api/proyecto/tabla?Pais=${paisRegion}&AnioInicio=${desde}&AnioFin=${hasta}&Area=${area}&Departamento=${departamento}`,
+    url: `https://practica-supervisada.herokuapp.com/api/proyecto/lista?Pais=${paisRegion}&AnioInicio=${desde}&AnioFin=${hasta}&Area=${area}&Departamento=${departamento}`,
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
       "Content-Type": "application/json",
